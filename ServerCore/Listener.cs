@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ServerCore
 {
-    internal class Listener
+    public class Listener
     {
         Socket _listenSocket;
         private Func<Session> _sessionFactory; //인자는 없고 리턴이 session인 함수
