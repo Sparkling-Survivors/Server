@@ -4,6 +4,42 @@ using System.Text;
 
 namespace ServerCore;
 
+public abstract class PacketSession : Session
+{
+    public static readonly int HeaderSize = 2;
+
+    //sealed를 쓰면, 다른 클래스가 PacketSession을 상속받은다음, OnRecv을 오버라이딩 하려고 하면 에러가 남
+    //현재 정책은 size는 본인을 포함한, 즉 [size(2)][packetId(2)][...] 전체의 사이즈를 저장하고 있음
+    //[size(2)][packetId(2)][...][size(2)][packetId(2)][...]
+    public sealed override int OnRecv(ArraySegment<byte> buffer)
+    {
+        int processLen = 0;
+
+        while (true)
+        {
+            //최소한 헤더(사이즈)는 파싱할 수 있는지 확인
+            if (buffer.Count < HeaderSize)
+                break;
+
+            //패킷이 완전체로 도착했는지 확인 (ushort만큼 긁어서 뱉어줌=데이터 사이즈가 들어잇는 부분)
+            ushort dataSize=BitConverter.ToUInt16(buffer.Array, buffer.Offset);
+            if (buffer.Count < dataSize)
+                break;
+
+            //여기까지 왔으면 패킷 조립 가능
+            OnRecvPacket(new ArraySegment<byte>(buffer.Array,buffer.Offset,dataSize));
+
+            processLen += dataSize;
+            buffer = new ArraySegment<byte>(buffer.Array, buffer.Offset + dataSize, buffer.Count - dataSize);
+
+        }
+
+        return processLen; //처리한 바이트수를 리턴
+    }
+
+    public abstract void OnRecvPacket(ArraySegment<byte> buffer);
+}
+
 public abstract class Session
 {
     private Socket _socket;
@@ -19,7 +55,6 @@ public abstract class Session
 
     public abstract void OnConnected(EndPoint endPoint);
     public abstract void OnDisconnected(EndPoint endPoint);
-
     public abstract int OnRecv(ArraySegment<byte> buffer); //얼마만큼의 데이터를 처리했는지 반환해줌
 
     public abstract void OnSend(int numOfBytes);
