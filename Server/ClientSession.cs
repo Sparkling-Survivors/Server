@@ -5,8 +5,25 @@ namespace Server;
 
 class Packet
 {
-    public int size;
-    public int packetId;
+    public ushort size;
+    public ushort packetId = 4;
+}
+
+class PlayerInfoReq : Packet //플레이어 정보를 알고싶어서 서버로 보내는 패킷 (request)
+{
+    public long playerId;
+}
+
+class PlayerInfoOk : Packet //플레이어 정보를 서버한테 받았을때의 정보 패킷
+{
+    public int hp;
+    public int attack;
+}
+
+public enum PacketID
+{
+    PlayerInfoReq = 1,
+    PlayerInfoOk = 2,
 }
 
 class ClientSession : PacketSession
@@ -37,8 +54,24 @@ class ClientSession : PacketSession
 
     public override void OnRecvPacket(ArraySegment<byte> buffer)
     {
+        ushort count = 0;
+
         ushort size = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
+        count += 2;
         ushort id = BitConverter.ToUInt16(buffer.Array, buffer.Offset + 2);
+        count += 2;
+
+        switch ((PacketID)id)
+        {
+            case PacketID.PlayerInfoReq:
+            {
+                long playerId = BitConverter.ToInt64(buffer.Array, buffer.Offset + count);
+                count += 8;
+                Console.WriteLine($"PlayerInfoReq: {playerId}");
+            }
+                break;
+        }
+
         Console.WriteLine($"RecvPacketId: {id}. Size:{size}");
     }
 
