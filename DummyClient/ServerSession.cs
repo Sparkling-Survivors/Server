@@ -7,16 +7,8 @@ using System.Text;
 
 namespace DummyClient;
 
-public abstract class Packet
-{
-    public ushort size;
-    public ushort packetId;
 
-    public abstract ArraySegment<byte> Write();
-    public abstract void Read(ArraySegment<byte> s);
-}
-
-class PlayerInfoReq : Packet //플레이어 정보를 알고싶어서 서버로 보내는 패킷 (request)
+class PlayerInfoReq //플레이어 정보를 알고싶어서 서버로 보내는 패킷 (request)
 {
     public long playerId;
     public string name;
@@ -53,13 +45,7 @@ class PlayerInfoReq : Packet //플레이어 정보를 알고싶어서 서버로 
 
     public List<SkillInfo> skills = new List<SkillInfo>();
 
-
-    public PlayerInfoReq()
-    {
-        this.packetId = (ushort)PacketID.PlayerInfoReq;
-    }
-
-    public override ArraySegment<byte> Write()
+    public  ArraySegment<byte> Write()
     {
         ArraySegment<byte> segment = SendBufferHelper.Open(4096);
 
@@ -67,12 +53,11 @@ class PlayerInfoReq : Packet //플레이어 정보를 알고싶어서 서버로 
         bool success = true;
 
         Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
-
-
+        
         //[][][][][][][][][]
         //success와 and연산을해서 한번이라도 false가 떴으면 전체 결과가 false로 나옴
         count += sizeof(ushort);
-        success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.packetId);
+        success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), (ushort)PacketID.PlayerInfoReq);
         count += sizeof(ushort);
         success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.playerId);
         count += sizeof(long);
@@ -103,7 +88,7 @@ class PlayerInfoReq : Packet //플레이어 정보를 알고싶어서 서버로 
         return SendBufferHelper.Close(count);
     }
 
-    public override void Read(ArraySegment<byte> segment)
+    public  void Read(ArraySegment<byte> segment)
     {
         ushort count = 0;
 
