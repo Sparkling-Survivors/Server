@@ -6,7 +6,7 @@
         <list name="skill">
             <int name="id"/>
             <short name="level"/>
-            <flaot name="duration"/>
+            <float name="duration"/>
         </list>
     </packet>
     

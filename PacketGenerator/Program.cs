@@ -103,6 +103,10 @@ class Program
                     writeCode += string.Format(PacketFormat.writeStringFormat,memberName);
                     break;
                 case "list":
+                    Tuple<string, string, string> t = ParseList(r);
+                    memberCode += t.Item1;
+                    readCode += t.Item2;
+                    writeCode += t.Item3;
                     break;
                 default:
                     break;
@@ -114,6 +118,35 @@ class Program
         readCode = readCode.Replace("\n", "\n\t\t");
         writeCode = writeCode.Replace("\n", "\n\t\t");
         
+        return new Tuple<string, string, string>(memberCode, readCode, writeCode);
+    }
+
+    private static Tuple<string,string,string> ParseList(XmlReader r)
+    {
+        string listName = r["name"];
+        if (string.IsNullOrEmpty(listName))
+        {
+            Console.WriteLine("List without name");
+            return null;
+        }
+
+        Tuple<string, string, string> t = ParseMembers(r);
+
+        string memberCode = string.Format(PacketFormat.memberListFormat,
+            FirstCharToUpper(listName),
+            FirstCharToLower(listName),
+            t.Item1,
+            t.Item2,
+            t.Item3);
+
+        string readCode = string.Format(PacketFormat.readListFormat,
+            FirstCharToUpper(listName),
+            FirstCharToLower(listName));
+        
+        string writeCode = string.Format(PacketFormat.writeListFormat,
+            FirstCharToUpper(listName),
+            FirstCharToLower(listName));
+
         return new Tuple<string, string, string>(memberCode, readCode, writeCode);
     }
 
@@ -138,6 +171,26 @@ class Program
             default:
                 return "";
         }
+    }
+
+    public static string FirstCharToUpper(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+        {
+            return "";
+        }
+
+        return input[0].ToString().ToUpper() + input.Substring(1);
+    }
+    
+    public static string FirstCharToLower(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+        {
+            return "";
+        }
+
+        return input[0].ToString().ToLower() + input.Substring(1);
     }
 }
 
