@@ -3,6 +3,28 @@ namespace PacketGenerator;
 
 public class PacketFormat
 {
+    // {0} 패킷 이름/번호 목록
+    // {1} 패킷 목록
+    public static string fileFormat =
+@"
+using ServerCore;
+using System;
+using System.Net;
+using System.Text;
+
+public enum PacketID
+{{
+    {0}
+}}
+
+{1}
+";
+
+    // {0} 패킷 이름
+    // {1} 패킷 번호ㄷ
+    public static string packetEnumFormat =
+        @"{0} = {1}";
+    
     // {0} 패킷 이름
     // {1} 멤버 변수들
     // {2} 멤버 변수 Read

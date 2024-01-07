@@ -5,6 +5,8 @@ namespace PacketGenerator;
 class Program
 {
     private static string genPackets;
+    private static ushort packetId;
+    private static string packetEnums;
     static void Main(string[] args)
     {
         XmlReaderSettings settings = new XmlReaderSettings()
@@ -24,8 +26,9 @@ class Program
                     ParsePacket(r);
                 //Console.WriteLine(r.Name+" "+r["name"]);                
             }
-            
-            File.WriteAllText("GenPackets.cs", genPackets);
+
+            string fileText=String.Format(PacketFormat.fileFormat,packetEnums, genPackets);
+            File.WriteAllText("GenPackets.cs",fileText);
         }
     }
 
