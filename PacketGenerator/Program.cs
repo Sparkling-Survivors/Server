@@ -9,14 +9,19 @@ class Program
     private static string packetEnums;
     static void Main(string[] args)
     {
+        string pdlPath = "../PDL.xml";
+        
         XmlReaderSettings settings = new XmlReaderSettings()
         {
             IgnoreComments = true,
             IgnoreWhitespace = true
         };
 
+        if (args.Length >= 1)
+            pdlPath = args[0];
+
         //using을 사용하면 이 범위를 벗어날때 알아서 r.dispose를 호출해줌
-        using (XmlReader r = XmlReader.Create("PDL.xml", settings))
+        using (XmlReader r = XmlReader.Create(pdlPath, settings))
         {
             r.MoveToContent(); //헤더 같은거 건너뛰고 바로 <packet ~>로 감
 
