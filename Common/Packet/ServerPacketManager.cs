@@ -3,20 +3,14 @@ using ServerCore;
 public class PacketManager
 {
     #region Singleton
-
-    private static PacketManager _instance;
-
-    public static PacketManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-                _instance = new PacketManager();
-            return _instance;
-        }
-    }
-
+    private static PacketManager _instance=new PacketManager();
+    public static PacketManager Instance { get { return _instance; } }
     #endregion
+
+    PacketManager()
+    {
+        Register();
+    }
 
     //딕셔너리<프로토콜id, 어떤 작업을 할 것인가>
     private Dictionary<ushort, Action<PacketSession, ArraySegment<byte>>> _onRecv =

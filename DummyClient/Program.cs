@@ -19,18 +19,22 @@ namespace DummyClient
             IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
 
             Connector connector = new Connector();
-            connector.Connect(endPoint, () => { return new ServerSession();});
+            //현재 10개의 클라이언트를 시뮬레이팅한다는 설정(count)
+            connector.Connect(endPoint, () => { return SessionManager.Instance.Generate();},10);
             while (true)
             {
                 try
                 {
+                    //모든 세션들이 다 채팅메시지를 서버 쪽으로 날려줌
+                    SessionManager.Instance.SendForEach();
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
                 }
 
-                Thread.Sleep(100);
+                //일반적으로 MMO 만들때 이동 패킷을 대충 1초에 4번정도 보내기 때문에 250ms마다 1번씩 보내도록 설정
+                Thread.Sleep(250);
             }
             
 
