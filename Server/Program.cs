@@ -9,6 +9,7 @@ namespace Server;
 class Program
 {
     private static Listener _listener = new Listener();
+    public static GameRoom Room = new GameRoom();
 
     static void Main(string[] args)
     {
@@ -21,7 +22,7 @@ class Program
         IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
 
 
-        _listener.Init(endPoint, () => { return new ClientSession(); }); //누가 들어오면 OnAcceptHandler로 알려줘
+        _listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); }); //누가 들어오면 OnAcceptHandler로 알려줘
         Console.WriteLine("Listening...");
 
         while (true)

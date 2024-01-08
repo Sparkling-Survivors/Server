@@ -1,16 +1,16 @@
-﻿using ServerCore;
+﻿using Server;
+using ServerCore;
 
 public class PacketHandler
 {
-    public static void C_PlayerInfoReqHandler(PacketSession session, IPacket packet)
+    public static void C_ChatHandler(PacketSession session, IPacket packet)
     {
-        C_PlayerInfoReq p = packet as C_PlayerInfoReq;
+        C_Chat chatPacket = packet as C_Chat;
+        ClientSession clientSession = session as ClientSession;
+
+        if (clientSession.Room == null)
+            return;
         
-        Console.WriteLine($"PlayerInfoReq: {p.playerId} {p.name}");
-                
-        foreach (C_PlayerInfoReq.Skill skill in p.skills)
-        {
-            Console.WriteLine($"Skill ({skill.id}) ({skill.level}) ({skill.duration})");
-        } 
+        clientSession.Room.Broadcast(clientSession,chatPacket.chat);
     }
 }
