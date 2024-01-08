@@ -7,6 +7,9 @@ class Program
     private static string genPackets;
     private static ushort packetId;
     private static string packetEnums;
+    
+    private static string clientRegister;
+    private static string serverRegister;
     static void Main(string[] args)
     {
         string pdlPath = "../PDL.xml";
@@ -34,6 +37,10 @@ class Program
 
             string fileText=String.Format(PacketFormat.fileFormat,packetEnums, genPackets);
             File.WriteAllText("GenPackets.cs",fileText);
+            string clientManagerText = string.Format(PacketFormat.managerFormat, clientRegister);
+            File.WriteAllText("ClientPacketManager.cs",clientManagerText);
+            string serverManagerText = string.Format(PacketFormat.managerFormat, serverRegister);
+            File.WriteAllText("ServerPacketManager.cs",serverManagerText);
         }
     }
 
@@ -58,6 +65,11 @@ class Program
         Tuple<string,string,string> t=ParseMembers(r);
         genPackets += string.Format(PacketFormat.packetFormat, packetName, t.Item1, t.Item2, t.Item3);
         packetEnums += string.Format(PacketFormat.packetEnumFormat, packetName, ++packetId)+Environment.NewLine+"\t";
+        
+        if(packetName.StartsWith("S_") || packetName.StartsWith("s_")) //서버 쪽에서 보내는 패킷이기 떄문에 클라이언트쪽에 등록
+            clientRegister+= string.Format(PacketFormat.managerRegisterFormat, packetName) + Environment.NewLine; 
+        else //클라이언트 쪽에서 보내는 패킷이기 떄문에 서버쪽에 등록
+            serverRegister+= string.Format(PacketFormat.managerRegisterFormat, packetName) + Environment.NewLine; 
     }
 
     // {1} 멤버 변수들

@@ -3,6 +3,70 @@ namespace PacketGenerator;
 
 public class PacketFormat
 {
+    // {0} 패킷 등록
+    public static string managerFormat =
+@"using ServerCore;
+
+public class PacketManager
+{{
+    #region Singleton
+
+    private static PacketManager _instance;
+
+    public static PacketManager Instance
+    {{
+        get
+        {{
+            if (_instance == null)
+                _instance = new PacketManager();
+            return _instance;
+        }}
+    }}
+
+    #endregion
+
+    //딕셔너리<프로토콜id, 어떤 작업을 할 것인가>
+    private Dictionary<ushort, Action<PacketSession, ArraySegment<byte>>> _onRecv =
+        new Dictionary<ushort, Action<PacketSession, ArraySegment<byte>>>();
+
+    Dictionary<ushort, Action<PacketSession, IPacket>> _handler =
+        new Dictionary<ushort, Action<PacketSession, IPacket>>();
+    
+    
+    public void Register()
+    {{
+{0}
+    }}
+    
+    public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
+    {{
+        ushort count = 0;
+
+        ushort size = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
+        count += 2;
+        ushort id = BitConverter.ToUInt16(buffer.Array, buffer.Offset + 2);
+        count += 2;
+
+        Action<PacketSession, ArraySegment<byte>> action = null;
+        if(_onRecv.TryGetValue(id,out action))
+            action.Invoke(session,buffer);
+    }}
+    
+    void MakePacket<T>(PacketSession session, ArraySegment<byte> buffer) where T : IPacket, new()
+    {{
+        T pkt = new T();
+        pkt.Read(buffer);
+
+        Action<PacketSession, IPacket> action = null;
+        if(_handler.TryGetValue(pkt.Protocol,out action))
+            action.Invoke(session,pkt);
+    }}
+}}";
+    
+    // {0} 패킷 이름
+    public static string managerRegisterFormat =
+@"      _onRecv.Add((ushort)PacketID.{0},MakePacket<{0}>);
+        _handler.Add((ushort)PacketID.{0},PacketHandler.{0}Handler);";
     // {0} 패킷 이름/번호 목록
     // {1} 패킷 목록
     public static string fileFormat =
@@ -16,7 +80,7 @@ public enum PacketID
     {0}
 }}
 
-interface IPacket
+public interface IPacket
 {{
 	ushort Protocol {{ get; }}
 	void Read(ArraySegment<byte> segment);
