@@ -3,6 +3,8 @@ using System;
 using System.Net;
 using System.Text;
 
+namespace Server;
+
 public enum PacketID
 {
     PlayerInfoReq = 1,
@@ -10,7 +12,7 @@ public enum PacketID
 	
 }
 
-interface IPacket
+public interface IPacket
 {
 	ushort Protocol { get; }
 	void Read(ArraySegment<byte> segment);
@@ -100,7 +102,7 @@ class PlayerInfoReq : IPacket
 
         ReadOnlySpan<byte> s = new ReadOnlySpan<byte>(segment.Array, segment.Offset, segment.Count);
         count += sizeof(ushort);
-        count += sizeof(ushort);
+        count += sizeof(ushort);	
         this.testByte = (byte)segment.Array[segment.Offset + count];
 		count += sizeof(byte);
 		this.playerId = BitConverter.ToInt64(s.Slice(count, s.Length - count));
