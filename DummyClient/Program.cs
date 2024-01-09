@@ -20,7 +20,7 @@ namespace DummyClient
 
             Connector connector = new Connector();
             //현재 10개의 클라이언트를 시뮬레이팅한다는 설정(count)
-            connector.Connect(endPoint, () => { return SessionManager.Instance.Generate();},10);
+            connector.Connect(endPoint, () => { return SessionManager.Instance.Generate();},100);
             while (true)
             {
                 try
