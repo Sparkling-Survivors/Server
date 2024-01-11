@@ -25,6 +25,8 @@ class Program
 
         while (true)
         {
+            Room.Push(()=>Room.Flush());
+            Thread.Sleep(250);
             //프로그램 종료 방지용 임시
         }
     }

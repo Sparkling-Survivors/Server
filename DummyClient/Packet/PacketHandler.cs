@@ -10,6 +10,6 @@ public class PacketHandler
         
         //너무 많이찍으면 복잡하니까 1번 패킷만 찍어줌
         //if(chatPacket.playerId==1)
-            Console.WriteLine(chatPacket.chat);
+            //Console.WriteLine(chatPacket.chat);
     }
 }
