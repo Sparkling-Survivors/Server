@@ -10,6 +10,12 @@ class Program
 {
     private static Listener _listener = new Listener();
     public static GameRoom Room = new GameRoom();
+    
+    static void FlushRoom()
+    {
+        Room.Push(()=>Room.Flush());
+        JobTimer.Instance.Push(FlushRoom, 250);
+    }
 
     static void Main(string[] args)
     {
@@ -23,11 +29,11 @@ class Program
         _listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); }); //누가 들어오면 OnAcceptHandler로 알려줘
         Console.WriteLine("Listening...");
 
+        JobTimer.Instance.Push(FlushRoom);
+        
         while (true)
         {
-            Room.Push(()=>Room.Flush());
-            Thread.Sleep(250);
-            //프로그램 종료 방지용 임시
+            JobTimer.Instance.Flush();
         }
     }
 }
