@@ -46,7 +46,7 @@ public class PacketManager
             IPacket packet=func.Invoke(session,buffer);
             
             if(onRecvCallback!=null)
-                onRecvCallback.Invoke(session,packet); //패킷큐에다가 패킷을 그냥 푸시만 해줌
+                onRecvCallback.Invoke(session,packet); //유니티 클라쪽에서는 메인쓰레드가 처리해야하기 때문에 이 부분을 사용해서 패킷큐에 넣어주고 메인쓰레드에서 처리하도록 함
             else
                 HandlePacket(session,packet);
         }

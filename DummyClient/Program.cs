@@ -6,8 +6,6 @@ using System.Text;
 
 namespace DummyClient
 {
-    
-
     class Program
     {
         static void Main(string[] args)
@@ -34,11 +32,8 @@ namespace DummyClient
                 }
 
                 //일반적으로 MMO 만들때 이동 패킷을 대충 1초에 4번정도 보내기 때문에 250ms마다 1번씩 보내도록 설정
-                Thread.Sleep(250);
+                Thread.Sleep(2000);
             }
-            
-
-
         }
     }
 }

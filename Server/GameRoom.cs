@@ -6,7 +6,7 @@ public class GameRoom : IJobQueue
 {
     List<ClientSession> _sessions = new List<ClientSession>();
     JobQueue _jobQueue = new JobQueue();
-    List<ArraySegment<byte>> _pendingList = new List<ArraySegment<byte>>(); 
+    List<ArraySegment<byte>> _pendingList = new List<ArraySegment<byte>>(); //브로드캐스트 전송 예약 목록
 
     public void Push(Action job)
     {

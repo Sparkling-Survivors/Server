@@ -16,9 +16,9 @@ public class SessionManager
             foreach (ServerSession session in _sessions)
             {
                 C_Move movePacket = new C_Move();
-                movePacket.posX = _rand.Next(-50,50);
-                movePacket.posY = 0;
-                movePacket.posZ = _rand.Next(-50,50);
+                movePacket.posX = _rand.Next(-3,3);
+                movePacket.posY = 1;
+                movePacket.posZ = _rand.Next(-3,3);
                 
                 session.Send(movePacket.Write());
             }

@@ -49,7 +49,7 @@ public class PacketManager
             IPacket packet=func.Invoke(session,buffer);
             
             if(onRecvCallback!=null)
-                onRecvCallback.Invoke(session,packet); //패킷큐에다가 패킷을 그냥 푸시만 해줌
+                onRecvCallback.Invoke(session,packet);
             else
                 HandlePacket(session,packet);
         }}

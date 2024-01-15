@@ -55,8 +55,8 @@ public abstract class Session
     object _lock = new object();
     private Queue<ArraySegment<byte>> _sendQueue = new Queue<ArraySegment<byte>>();
     List<ArraySegment<byte>> _pendingList = new List<ArraySegment<byte>>();
-    SocketAsyncEventArgs _sendArgs = new SocketAsyncEventArgs();
     SocketAsyncEventArgs _recvArgs = new SocketAsyncEventArgs();
+    SocketAsyncEventArgs _sendArgs = new SocketAsyncEventArgs();
 
     public abstract void OnConnected(EndPoint endPoint);
     public abstract void OnDisconnected(EndPoint endPoint);
