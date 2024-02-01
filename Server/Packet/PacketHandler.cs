@@ -1,30 +1,15 @@
-﻿using Server;
+﻿using Google.Protobuf;
+using Google.Protobuf.Protocol;
+using Server;
 using ServerCore;
 
 public class PacketHandler
 {
-    public static void C_LeaveGameHandler(PacketSession session, IPacket packet)
+    public static void C_ChatHandler(PacketSession session, IMessage packet)
     {
-        ClientSession clientSession = session as ClientSession;
+        S_Chat chatPacket = packet as S_Chat;
+        ClientSession serverSession = session as ClientSession;
 
-        if (clientSession.Room == null)
-            return;
-        
-        GameRoom room = clientSession.Room;
-        room.Push(() => room.Leave(clientSession));
-    }
-    
-    public static void C_MoveHandler(PacketSession session, IPacket packet)
-    {
-        C_Move movePacket = packet as C_Move;
-        ClientSession clientSession = session as ClientSession;
-
-        if (clientSession.Room == null)
-            return;
-
-        //Console.WriteLine($"{movePacket.posX} , {movePacket.posY} , {movePacket.posZ}");
-        
-        GameRoom room = clientSession.Room;
-        room.Push(() => room.Move(clientSession, movePacket));
+        Console.WriteLine(chatPacket.Context);
     }
 }
