@@ -1,10 +1,9 @@
 ﻿using ServerCore;
 using System.Net;
 using System.Text;
+using Server.Game;
 
 namespace Server;
-
-
 
 class Program
 {
@@ -17,6 +16,9 @@ class Program
 
     static void Main(string[] args)
     {
+        //1번룸 테스트용으로 사용 설정
+        RoomManager.Instance.Add();
+        
         // DNS (Domain Name System)
         string host = Dns.GetHostName();
         IPHostEntry ipHost = Dns.GetHostEntry(host);
