@@ -5,13 +5,70 @@ import "google/protobuf/timestamp.proto";
 option csharp_namespace = "Google.Protobuf.Protocol";
 
 enum MsgId {
-  S_ENTER_GAME = 0;
-  S_LEAVE_GAME = 1;
-  S_SPAWN = 2;
-  S_DESPAWN = 3;
-  C_MOVE = 4;
-  S_MOVE = 5;
+  C_ROOM_LIST = 0;
+  S_ROOM_LIST = 1;
+  C_MAKE_ROOM = 2;
+  S_MAKE_ROOM = 3;
+  C_ENTER_ROOM = 4;
+  S_ENTER_ROOM = 5;
+  C_LEAVE_ROOM = 6;
+  S_LEAVE_ROOM = 7;
+
+  S_ENTER_GAME = 8;
+  S_LEAVE_GAME = 9;
+  S_SPAWN = 10;
+  S_DESPAWN = 11;
+  C_MOVE = 12;
+  S_MOVE = 13;
 }
+
+message C_RoomList {
+}
+
+message S_RoomList {
+  repeated RoomInfo rooms = 1;
+}
+
+message RoomInfo {
+  int32 roomId = 1;
+  string title = 2;
+  int32 currentCount = 3;
+  int32 maxCount = 4;
+  bool isPrivate = 5;
+  bool isPlaying = 6;
+}
+
+message C_MakeRoom {
+  string title = 1;
+  bool isPrivate = 2;
+  string password = 3;
+}
+
+message S_MakeRoom {
+  RoomInfo room = 1;
+}
+
+message C_EnterRoom {
+  int32 roomId = 1;
+  string password = 2;
+  string name = 3;
+}
+
+message S_EnterRoom {
+  bool canEnter = 1;
+  bool forExistingPlayers = 2; //방에 있던 유저들에게 특정 유저의 신규 방 입장을 알리기 위한 용도인가?
+  RoomInfo room = 3;
+  repeated PlayerInfo players = 4;
+}
+
+message C_LeaveRoom {
+  int32 roomId = 1;
+}
+
+message S_LeaveRoom {
+  int32 playerId=1; //방에서 나간 사람의 플레이어id
+}
+
 
 message S_EnterGame {
   PlayerInfo player = 1;

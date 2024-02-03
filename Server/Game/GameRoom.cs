@@ -5,11 +5,84 @@ namespace Server.Game;
 public class GameRoom
 {
     object _lock = new object();
-    public int RoomId { get;  set; }
+    public RoomInfo Info { get; set; } = new RoomInfo();
+    public string Password { get; set; }
     
-    List<Player> _players = new List<Player>();
+    List<Player> _players = new List<Player>(); //방에 있는 플레이어 리스트
+
+    public void EnterRoom(ClientSession session, string name)
+    {
+        if (session == null)
+            return;
+        
+        lock (_lock)
+        {
+            Player newPlayer = new Player();
+            newPlayer.Info.PlayerId = session.SessionId;
+            newPlayer.Info.Name = name;
+            newPlayer.Info.Transform = null;
+            _players.Add(newPlayer);
+            newPlayer.Room = this;
+            newPlayer.Session = session;
+            
+            //본인한테 정보 전송
+            {
+                S_EnterRoom enterPacket = new S_EnterRoom();
+                enterPacket.CanEnter = true;
+                enterPacket.ForExistingPlayers = false;
+                enterPacket.Room = Info;
+                foreach (Player player in _players)  
+                {
+                    enterPacket.Players.Add(player.Info);
+                }
+                newPlayer.Session.Send(enterPacket);
+            }
+            
+            //타인한테 정보 전송
+            {
+                S_EnterRoom enterPacket = new S_EnterRoom();
+                enterPacket.CanEnter = true;
+                enterPacket.ForExistingPlayers = true;
+                enterPacket.Room = Info;
+                foreach (Player player in _players)  
+                {
+                    enterPacket.Players.Add(player.Info);
+                }
+                
+                foreach (Player p in _players)
+                {
+                    if (p != newPlayer)
+                        p.Session.Send(enterPacket);
+                }
+            }
+            
+        }
+    }
     
-    public void EnterGame(Player newPlayer)
+    public void LeaveRoom(ClientSession session)
+    {
+        if (session == null)
+            return;
+        
+        lock (_lock)
+        {
+            Player player = _players.Find(x => x.Session == session);
+            if(player== null)
+                return;
+            
+            S_LeaveRoom leavePacket = new S_LeaveRoom();
+            leavePacket.PlayerId = player.Info.PlayerId;
+            
+            _players.Remove(player);
+            player.Room = null;
+            
+            //본인 포함 방 인원 모두한테 나갔다는 정보 전송
+            foreach (Player p in _players)
+                p.Session.Send(leavePacket);
+        }
+    }
+    
+    /*public void EnterGame(Player newPlayer)
     {
         if (newPlayer == null)
             return;
@@ -68,5 +141,5 @@ public class GameRoom
                     p.Session.Send(despawnPacket);
             }
         }
-    }
+    }*/
 }

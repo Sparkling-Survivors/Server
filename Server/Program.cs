@@ -17,7 +17,7 @@ class Program
     static void Main(string[] args)
     {
         //1번룸 테스트용으로 사용 설정
-        RoomManager.Instance.Add();
+        //RoomManager.Instance.Add();
         
         // DNS (Domain Name System)
         string host = Dns.GetHostName();

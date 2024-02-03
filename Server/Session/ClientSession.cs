@@ -42,7 +42,7 @@ public class ClientSession : PacketSession
         MyPlayer.Info.Transform.RotZ = 0;*/
         MyPlayer.Session = this;
         
-        RoomManager.Instance.Find(1).EnterGame(MyPlayer);
+        //RoomManager.Instance.Find(1).EnterGame(MyPlayer);
     }
 
     public override void OnRecvPacket(ArraySegment<byte> buffer)
@@ -52,7 +52,7 @@ public class ClientSession : PacketSession
 
     public override void OnDisconnected(EndPoint endPoint)
     {
-        RoomManager.Instance.Find(1).LeaveGame(MyPlayer.Info.PlayerId);
+        //RoomManager.Instance.Find(1).LeaveGame(MyPlayer.Info.PlayerId);
         
         SessionManager.Instance.Remove(this);
 
