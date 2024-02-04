@@ -10,16 +10,17 @@ enum MsgId {
   C_MAKE_ROOM = 2;
   S_MAKE_ROOM = 3;
   C_ENTER_ROOM = 4;
-  S_ENTER_ROOM = 5;
-  C_LEAVE_ROOM = 6;
-  S_LEAVE_ROOM = 7;
+  S_ALLOW_ENTER_ROOM = 5;
+  S_INFORM_NEW_FACE_IN_ROOM = 6;
+  C_LEAVE_ROOM = 7;
+  S_LEAVE_ROOM = 8;
 
-  S_ENTER_GAME = 8;
-  S_LEAVE_GAME = 9;
-  S_SPAWN = 10;
-  S_DESPAWN = 11;
-  C_MOVE = 12;
-  S_MOVE = 13;
+  S_ENTER_GAME = 9;
+  S_LEAVE_GAME = 10;
+  S_SPAWN = 11;
+  S_DESPAWN = 12;
+  C_MOVE = 13;
+  S_MOVE = 14;
 }
 
 message C_RoomList {
@@ -46,6 +47,7 @@ message C_MakeRoom {
 
 message S_MakeRoom {
   RoomInfo room = 1;
+  string password = 2;
 }
 
 message C_EnterRoom {
@@ -54,11 +56,17 @@ message C_EnterRoom {
   string name = 3;
 }
 
-message S_EnterRoom {
+message S_AllowEnterRoom {
   bool canEnter = 1;
-  bool forExistingPlayers = 2; //방에 있던 유저들에게 특정 유저의 신규 방 입장을 알리기 위한 용도인가?
+  int32 myPlayerId = 2;
   RoomInfo room = 3;
   repeated PlayerInfo players = 4;
+}
+
+message S_InformNewFaceInRoom{
+  int32 roomId = 1;
+  int32 currentCount = 2;
+  PlayerInfo newPlayer = 3;
 }
 
 message C_LeaveRoom {

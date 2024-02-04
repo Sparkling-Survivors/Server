@@ -34,27 +34,23 @@ public class RoomManager
     public void EnterRoom(int roomId, string password, ClientSession session, string name)
     {
         GameRoom room = null;
-        S_EnterRoom sendPacket = new S_EnterRoom();
+        S_AllowEnterRoom allowEnterPacket = new S_AllowEnterRoom(){CanEnter = false};
 
         lock (_lock)    
         {
-            sendPacket.CanEnter = false;
-            sendPacket.ForExistingPlayers = false;
-            sendPacket.Room = null;
-            
             if (!_rooms.ContainsKey(roomId)) //존재하지 않는 방이면 입장불가
             {
-                session.Send(sendPacket);
+                session.Send(allowEnterPacket);
             }   
             else
             {
                 room = _rooms[roomId];
                 if (room.Info.IsPlaying) //게임중이면 입장불가
-                    session.Send(sendPacket);
+                    session.Send(allowEnterPacket);
                 else if (room.Info.CurrentCount >= room.Info.MaxCount) //방이 꽉차면 입장불가
-                    session.Send(sendPacket);
+                    session.Send(allowEnterPacket);
                 else if (room.Info.IsPrivate && room.Password != password) //비공개방이면서, 비밀번호가 틀리면 입장불가
-                    session.Send(sendPacket);
+                    session.Send(allowEnterPacket);
                 else //비공개방이면서, 비밀번호가 맞은경우 입장 or 입장가능한 공개방
                 {
                     //서버에서 방입장 처리

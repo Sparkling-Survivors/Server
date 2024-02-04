@@ -33,6 +33,7 @@ public class PacketHandler
         GameRoom newRoom = RoomManager.Instance.MakeRoom(makeRoomPacket.Title, makeRoomPacket.IsPrivate, makeRoomPacket.Password);
 
         sendPacket.Room = newRoom.Info;
+        sendPacket.Password = makeRoomPacket.Password;
         clientSession.Send(sendPacket);
     }
     
