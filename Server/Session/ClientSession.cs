@@ -39,15 +39,7 @@ public class ClientSession : PacketSession
         // 임의로 플레이어 생성
         MyPlayer = PlayerManager.Instance.Add();
         MyPlayer.Info.Name = "Player" + MyPlayer.Info.PlayerId;
-        /*MyPlayer.Info.Transform.PosX = 0;
-        MyPlayer.Info.Transform.PosY = 0;
-        MyPlayer.Info.Transform.PosZ = 0;
-        MyPlayer.Info.Transform.RotX = 0;
-        MyPlayer.Info.Transform.RotY = 0;
-        MyPlayer.Info.Transform.RotZ = 0;*/
         MyPlayer.Session = this;
-        
-        //RoomManager.Instance.Find(1).EnterGame(MyPlayer);
     }
 
     public override void OnRecvPacket(ArraySegment<byte> buffer)
