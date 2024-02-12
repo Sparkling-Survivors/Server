@@ -15,7 +15,12 @@ public class ClientSession : PacketSession
 
     public void Send(IMessage packet)
     {
-        string msgName = packet.Descriptor.Name.Replace("_", String.Empty);
+        /*string msgName = packet.Descriptor.Name.Replace("_", String.Empty);
+        MsgId msgId = (MsgId)Enum.Parse(typeof(MsgId),msgName);*/
+        string[] parts = packet.Descriptor.Name.Split('_');
+        parts[0] = char.ToUpper(parts[0][0]) + parts[0].Substring(1).ToLower();
+        string msgName = string.Join("_", parts);
+        msgName = msgName.Replace("_", "");
         MsgId msgId = (MsgId)Enum.Parse(typeof(MsgId),msgName);
 
         ushort size = (ushort)packet.CalculateSize();
