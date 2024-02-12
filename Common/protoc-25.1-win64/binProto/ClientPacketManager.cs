@@ -23,26 +23,16 @@ class PacketManager
 		
 	public void Register()
 	{		
-		_onRecv.Add((ushort)MsgId.SRoomList, MakePacket<S_RoomList>);
-		_handler.Add((ushort)MsgId.SRoomList, PacketHandler.S_RoomListHandler);		
-		_onRecv.Add((ushort)MsgId.SMakeRoom, MakePacket<S_MakeRoom>);
-		_handler.Add((ushort)MsgId.SMakeRoom, PacketHandler.S_MakeRoomHandler);		
-		_onRecv.Add((ushort)MsgId.SAllowEnterRoom, MakePacket<S_AllowEnterRoom>);
-		_handler.Add((ushort)MsgId.SAllowEnterRoom, PacketHandler.S_AllowEnterRoomHandler);		
-		_onRecv.Add((ushort)MsgId.SInformNewFaceInRoom, MakePacket<S_InformNewFaceInRoom>);
-		_handler.Add((ushort)MsgId.SInformNewFaceInRoom, PacketHandler.S_InformNewFaceInRoomHandler);		
-		_onRecv.Add((ushort)MsgId.SLeaveRoom, MakePacket<S_LeaveRoom>);
-		_handler.Add((ushort)MsgId.SLeaveRoom, PacketHandler.S_LeaveRoomHandler);		
-		_onRecv.Add((ushort)MsgId.SEnterGame, MakePacket<S_EnterGame>);
-		_handler.Add((ushort)MsgId.SEnterGame, PacketHandler.S_EnterGameHandler);		
-		_onRecv.Add((ushort)MsgId.SLeaveGame, MakePacket<S_LeaveGame>);
-		_handler.Add((ushort)MsgId.SLeaveGame, PacketHandler.S_LeaveGameHandler);		
-		_onRecv.Add((ushort)MsgId.SSpawn, MakePacket<S_Spawn>);
-		_handler.Add((ushort)MsgId.SSpawn, PacketHandler.S_SpawnHandler);		
-		_onRecv.Add((ushort)MsgId.SDespawn, MakePacket<S_Despawn>);
-		_handler.Add((ushort)MsgId.SDespawn, PacketHandler.S_DespawnHandler);		
-		_onRecv.Add((ushort)MsgId.SMove, MakePacket<S_Move>);
-		_handler.Add((ushort)MsgId.SMove, PacketHandler.S_MoveHandler);
+		_onRecv.Add((ushort)MsgId.ScRoomList, MakePacket<SC_RoomList>);
+		_handler.Add((ushort)MsgId.ScRoomList, PacketHandler.SC_RoomListHandler);		
+		_onRecv.Add((ushort)MsgId.ScMakeRoom, MakePacket<SC_MakeRoom>);
+		_handler.Add((ushort)MsgId.ScMakeRoom, PacketHandler.SC_MakeRoomHandler);		
+		_onRecv.Add((ushort)MsgId.ScAllowEnterRoom, MakePacket<SC_AllowEnterRoom>);
+		_handler.Add((ushort)MsgId.ScAllowEnterRoom, PacketHandler.SC_AllowEnterRoomHandler);		
+		_onRecv.Add((ushort)MsgId.ScInformNewFaceInRoom, MakePacket<SC_InformNewFaceInRoom>);
+		_handler.Add((ushort)MsgId.ScInformNewFaceInRoom, PacketHandler.SC_InformNewFaceInRoomHandler);		
+		_onRecv.Add((ushort)MsgId.ScLeaveRoom, MakePacket<SC_LeaveRoom>);
+		_handler.Add((ushort)MsgId.ScLeaveRoom, PacketHandler.SC_LeaveRoomHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

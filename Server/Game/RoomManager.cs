@@ -34,7 +34,7 @@ public class RoomManager
     public void EnterRoom(int roomId, string password, ClientSession session, string name)
     {
         GameRoom room = null;
-        S_AllowEnterRoom allowEnterPacket = new S_AllowEnterRoom(){CanEnter = false};
+        SC_AllowEnterRoom allowEnterPacket = new SC_AllowEnterRoom(){CanEnter = false};
 
         lock (_lock)    
         {
@@ -62,7 +62,8 @@ public class RoomManager
 
     public void LeaveRoom(int roomId, ClientSession session)
     {
-        S_LeaveGame sendPacket = new S_LeaveGame();
+        SC_LeaveRoom sendPacket = new SC_LeaveRoom();
+        sendPacket.PlayerId = session.SessionId; //현재 플레이어id는 세션아이디와 같음
         
         lock (_lock)
         {
@@ -93,5 +94,14 @@ public class RoomManager
             return room;
 
         return null;
+    }
+    
+    public void ConnectToDedicatedServer(int roomId)
+    {
+        GameRoom room = Find(roomId);
+        if (room == null)
+            return;
+        
+        room.ConnectToDedicatedServer();
     }
 }

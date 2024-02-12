@@ -16,8 +16,8 @@ class Program
 
     static void Main(string[] args)
     {
-        //1번룸 테스트용으로 사용 설정
-        //RoomManager.Instance.Add();
+        //모든 서버 정보 초기화
+        
         
         // DNS (Domain Name System)
         string host = Dns.GetHostName();

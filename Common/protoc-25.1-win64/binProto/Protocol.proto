@@ -5,28 +5,25 @@ import "google/protobuf/timestamp.proto";
 option csharp_namespace = "Google.Protobuf.Protocol";
 
 enum MsgId {
-  C_ROOM_LIST = 0;
-  S_ROOM_LIST = 1;
-  C_MAKE_ROOM = 2;
-  S_MAKE_ROOM = 3;
-  C_ENTER_ROOM = 4;
-  S_ALLOW_ENTER_ROOM = 5;
-  S_INFORM_NEW_FACE_IN_ROOM = 6;
-  C_LEAVE_ROOM = 7;
-  S_LEAVE_ROOM = 8;
-
-  S_ENTER_GAME = 9;
-  S_LEAVE_GAME = 10;
-  S_SPAWN = 11;
-  S_DESPAWN = 12;
-  C_MOVE = 13;
-  S_MOVE = 14;
+  CS_ROOM_LIST = 0;
+  SC_ROOM_LIST = 1;
+  CS_MAKE_ROOM = 2;
+  SC_MAKE_ROOM = 3;
+  CS_ENTER_ROOM = 4;
+  SC_ALLOW_ENTER_ROOM = 5;
+  SC_INFORM_NEW_FACE_IN_ROOM = 6;
+  CS_LEAVE_ROOM = 7;
+  SC_LEAVE_ROOM = 8;
+  
+  SC_CONNECT_DEDICATED_SERVER = 9;
+  
+  
 }
 
-message C_RoomList {
+message CS_RoomList {
 }
 
-message S_RoomList {
+message SC_RoomList {
   repeated RoomInfo rooms = 1;
 }
 
@@ -39,66 +36,42 @@ message RoomInfo {
   bool isPlaying = 6;
 }
 
-message C_MakeRoom {
+message CS_MakeRoom {
   string title = 1;
   bool isPrivate = 2;
   string password = 3;
 }
 
-message S_MakeRoom {
+message SC_MakeRoom {
   RoomInfo room = 1;
   string password = 2;
 }
 
-message C_EnterRoom {
+message CS_EnterRoom {
   int32 roomId = 1;
   string password = 2;
   string name = 3;
 }
 
-message S_AllowEnterRoom {
+message SC_AllowEnterRoom {
   bool canEnter = 1;
   int32 myPlayerId = 2;
   RoomInfo room = 3;
   repeated PlayerInfo players = 4;
 }
 
-message S_InformNewFaceInRoom{
+message SC_InformNewFaceInRoom{
   int32 roomId = 1;
   int32 currentCount = 2;
   PlayerInfo newPlayer = 3;
 }
 
-message C_LeaveRoom {
+message CS_LeaveRoom {
   int32 roomId = 1;
 }
 
-message S_LeaveRoom {
+message SC_LeaveRoom {
   int32 playerId=1; //방에서 나간 사람의 플레이어id
-}
-
-
-message S_EnterGame {
-  PlayerInfo player = 1;
-}
-
-message S_LeaveGame {
-}
-
-message S_Spawn {
-  repeated PlayerInfo players = 1;
-}
-
-message S_Despawn {
-  repeated int32 playerIds = 1;
-}
-
-message C_Move {
-  TransformInfo transform = 1;
-}
-
-message S_Move {
-  PlayerInfo player = 1;
 }
 
 message PlayerInfo {

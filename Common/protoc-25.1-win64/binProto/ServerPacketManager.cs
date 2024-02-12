@@ -23,16 +23,14 @@ class PacketManager
 		
 	public void Register()
 	{		
-		_onRecv.Add((ushort)MsgId.CRoomList, MakePacket<C_RoomList>);
-		_handler.Add((ushort)MsgId.CRoomList, PacketHandler.C_RoomListHandler);		
-		_onRecv.Add((ushort)MsgId.CMakeRoom, MakePacket<C_MakeRoom>);
-		_handler.Add((ushort)MsgId.CMakeRoom, PacketHandler.C_MakeRoomHandler);		
-		_onRecv.Add((ushort)MsgId.CEnterRoom, MakePacket<C_EnterRoom>);
-		_handler.Add((ushort)MsgId.CEnterRoom, PacketHandler.C_EnterRoomHandler);		
-		_onRecv.Add((ushort)MsgId.CLeaveRoom, MakePacket<C_LeaveRoom>);
-		_handler.Add((ushort)MsgId.CLeaveRoom, PacketHandler.C_LeaveRoomHandler);		
-		_onRecv.Add((ushort)MsgId.CMove, MakePacket<C_Move>);
-		_handler.Add((ushort)MsgId.CMove, PacketHandler.C_MoveHandler);
+		_onRecv.Add((ushort)MsgId.CsRoomList, MakePacket<CS_RoomList>);
+		_handler.Add((ushort)MsgId.CsRoomList, PacketHandler.CS_RoomListHandler);		
+		_onRecv.Add((ushort)MsgId.CsMakeRoom, MakePacket<CS_MakeRoom>);
+		_handler.Add((ushort)MsgId.CsMakeRoom, PacketHandler.CS_MakeRoomHandler);		
+		_onRecv.Add((ushort)MsgId.CsEnterRoom, MakePacket<CS_EnterRoom>);
+		_handler.Add((ushort)MsgId.CsEnterRoom, PacketHandler.CS_EnterRoomHandler);		
+		_onRecv.Add((ushort)MsgId.CsLeaveRoom, MakePacket<CS_LeaveRoom>);
+		_handler.Add((ushort)MsgId.CsLeaveRoom, PacketHandler.CS_LeaveRoomHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

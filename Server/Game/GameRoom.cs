@@ -16,8 +16,8 @@ public class GameRoom
         if (session == null)
             return;
 
-        S_AllowEnterRoom allowEnterPacket = new S_AllowEnterRoom();
-        S_InformNewFaceInRoom informNewFaceInRoomPacket = new S_InformNewFaceInRoom();
+        SC_AllowEnterRoom allowEnterPacket = new SC_AllowEnterRoom();
+        SC_InformNewFaceInRoom informNewFaceInRoomPacket = new SC_InformNewFaceInRoom();
 
         lock (_lock)    
         {
@@ -62,7 +62,7 @@ public class GameRoom
             if (player == null)
                 return;
 
-            S_LeaveRoom leavePacket = new S_LeaveRoom();
+            SC_LeaveRoom leavePacket = new SC_LeaveRoom();
             leavePacket.PlayerId = player.Info.PlayerId;
 
             _players.Remove(player);
@@ -79,65 +79,17 @@ public class GameRoom
                 RoomManager.Instance.Remove(Info.RoomId);
         }
     }
-
-    /*public void EnterGame(Player newPlayer)
+    
+    public void ConnectToDedicatedServer()
     {
-        if (newPlayer == null)
+        if(_players.Count<=0)
             return;
-
-        lock (_lock)
+        
+        //TODO : 방에 있는 플레이어들을 전부 dedicated server로 연결
+        foreach (Player player in _players)
         {
-            _players.Add(newPlayer);
-            newPlayer.Room = this;
-
-            //본인한테 정보 전송
-            S_EnterGame enterPacket = new S_EnterGame();
-            enterPacket.Player = newPlayer.Info;
-            newPlayer.Session.Send(enterPacket);
-
-            S_Spawn spawnPacket = new S_Spawn();
-            foreach (Player p in _players)
-            {
-                if (p != newPlayer)
-                    spawnPacket.Players.Add(p.Info);
-            }
-            newPlayer.Session.Send(spawnPacket);
-
-
-            //타인한테 정보 전송
-            S_Spawn spawnPacket2 = new S_Spawn();
-            spawnPacket2.Players.Add(newPlayer.Info);
-            foreach (Player p in _players)
-            {
-                if (p != newPlayer)
-                    p.Session.Send(spawnPacket2);
-            }
+            ClientSession clientSession = player.Session;
         }
     }
-
-    public void LeaveGame(int playerId)
-    {
-        lock (_lock)
-        {
-            Player player = _players.Find(x => x.Info.PlayerId == playerId);
-            if(player== null)
-                return;
-
-            _players.Remove(player);
-            player.Room = null;
-
-            //본인한테 정보 전송
-            S_LeaveGame leavePacket = new S_LeaveGame();
-            player.Session.Send(leavePacket);
-
-            //타인한테 정보 전송
-            S_Despawn despawnPacket = new S_Despawn();
-            despawnPacket.PlayerIds.Add(player.Info.PlayerId);
-            foreach (Player p in _players)
-            {
-                if(p!=player)
-                    p.Session.Send(despawnPacket);
-            }
-        }
-    }*/
+    
 }

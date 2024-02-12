@@ -22,15 +22,7 @@ class PacketManager
 	public Action<PacketSession, IMessage, ushort> CustomHandler { get; set; }
 		
 	public void Register()
-	{		
-		_onRecv.Add((ushort)MsgId.CsRoomList, MakePacket<CS_RoomList>);
-		_handler.Add((ushort)MsgId.CsRoomList, PacketHandler.CS_RoomListHandler);		
-		_onRecv.Add((ushort)MsgId.CsMakeRoom, MakePacket<CS_MakeRoom>);
-		_handler.Add((ushort)MsgId.CsMakeRoom, PacketHandler.CS_MakeRoomHandler);		
-		_onRecv.Add((ushort)MsgId.CsEnterRoom, MakePacket<CS_EnterRoom>);
-		_handler.Add((ushort)MsgId.CsEnterRoom, PacketHandler.CS_EnterRoomHandler);		
-		_onRecv.Add((ushort)MsgId.CsLeaveRoom, MakePacket<CS_LeaveRoom>);
-		_handler.Add((ushort)MsgId.CsLeaveRoom, PacketHandler.CS_LeaveRoomHandler);
+	{
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
