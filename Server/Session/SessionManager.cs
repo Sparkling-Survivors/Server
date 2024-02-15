@@ -6,7 +6,7 @@ class SessionManager
     public static SessionManager Instance { get { return _session; } }
 
     int _sessionId = 0;
-    Dictionary<int, ClientSession> _sessions = new Dictionary<int, ClientSession>();
+    public Dictionary<int, ClientSession> _sessions = new Dictionary<int, ClientSession>();
     object _lock = new object();
 
     public ClientSession Generate()
@@ -19,7 +19,8 @@ class SessionManager
             session.SessionId = sessionId;
             _sessions.Add(sessionId, session);
 
-            Console.WriteLine($"Connected : {sessionId}");
+            Console.WriteLine($"Connected sessionId : {sessionId}");
+            Console.WriteLine($"Connected session count : {_sessions.Count}");
 
             return session;
         }

@@ -17,14 +17,36 @@ enum MsgId {
   
   SC_CONNECT_DEDICATED_SERVER = 9;
   
+  SC_PING_PONG = 10;
+  CS_PING_PONG = 11;
+  DSC_PING_PONG = 12;
+  CDS_PING_PONG = 13;
+  
+  CS_QUIT_UNITY = 14;
+  CDS_QUIT_UNITY = 16;
   
 }
 
-message CS_RoomList {
+enum ReasonRejected{
+  RoomNotExist = 0;
+  CurrentlyPlaying = 1;
+  RoomIsFull = 2;
+  WrongPassword = 3;
 }
 
-message SC_RoomList {
-  repeated RoomInfo rooms = 1;
+message PlayerInfo {
+  int32 playerId = 1;
+  string name = 2;
+  TransformInfo transform = 3;
+}
+
+message TransformInfo{
+  float posX = 1;
+  float posY = 2;
+  float posZ = 3;
+  float rotX = 4;
+  float rotY = 5;
+  float rotZ = 6;
 }
 
 message RoomInfo {
@@ -35,6 +57,14 @@ message RoomInfo {
   bool isPrivate = 5;
   bool isPlaying = 6;
 }
+
+message CS_RoomList {
+}
+
+message SC_RoomList {
+  repeated RoomInfo rooms = 1;
+}
+
 
 message CS_MakeRoom {
   string title = 1;
@@ -58,7 +88,9 @@ message SC_AllowEnterRoom {
   int32 myPlayerId = 2;
   RoomInfo room = 3;
   repeated PlayerInfo players = 4;
+  ReasonRejected reasonRejected = 5;
 }
+
 
 message SC_InformNewFaceInRoom{
   int32 roomId = 1;
@@ -74,17 +106,24 @@ message SC_LeaveRoom {
   int32 playerId=1; //방에서 나간 사람의 플레이어id
 }
 
-message PlayerInfo {
-  int32 playerId = 1;
-  string name = 2;
-  TransformInfo transform = 3;
+//TODO :SC_CONNECT_DEDICATED_SERVER 메시지구현
+
+message SC_PingPong {
 }
 
-message TransformInfo{
-  float posX = 1;
-  float posY = 2;
-  float posZ = 3;
-  float rotX = 4;
-  float rotY = 5;
-  float rotZ = 6;
+message CS_PingPong {
 }
+
+message DSC_PingPong {
+}
+
+message CDS_PingPong {
+}
+
+message CS_QuitUnity {
+}
+
+message CDS_QuitUnity {
+}
+
+

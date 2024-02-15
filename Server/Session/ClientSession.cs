@@ -49,7 +49,10 @@ public class ClientSession : PacketSession
 
     public override void OnDisconnected(EndPoint endPoint)
     {
-        RoomManager.Instance.LeaveRoom(MyPlayer.Room.Info.RoomId,this);
+        if (MyPlayer != null && MyPlayer.Room != null && MyPlayer.Room.Info != null)
+        {
+            RoomManager.Instance.LeaveRoom(MyPlayer.Room.Info.RoomId,this);
+        }
         SessionManager.Instance.Remove(this);
 
         Console.WriteLine($"OnDisconnected : {endPoint}");

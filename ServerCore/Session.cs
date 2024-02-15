@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
@@ -240,6 +241,9 @@ public abstract class Session
         else
         {
             //TODO
+            Console.WriteLine($"OnRecvCompleted Failed할때 소켓 에러: {args.SocketError}");
+            Console.WriteLine($"현재 온 bytesTransferred: {args.BytesTransferred}");
+            Console.WriteLine("hello888");
             Disconnect();
         }
     }
