@@ -12,6 +12,7 @@ public class ClientSession : PacketSession
 {
     public Player MyPlayer { get; set; }
     public int SessionId { get; set; }
+    public PingPong PingPong { get; set; }
 
     public void Send(IMessage packet)
     {
@@ -35,11 +36,9 @@ public class ClientSession : PacketSession
     public override void OnConnected(EndPoint endPoint)
     {
         Console.WriteLine($"OnConnected : {endPoint}");
-
-        // 임의로 플레이어 생성
-        MyPlayer = PlayerManager.Instance.Add();
-        MyPlayer.Info.Name = "Player" + MyPlayer.Info.PlayerId;
-        MyPlayer.Session = this;
+        
+        PingPong = new PingPong(this);
+        PingPong.SendPing();
     }
 
     public override void OnRecvPacket(ArraySegment<byte> buffer)

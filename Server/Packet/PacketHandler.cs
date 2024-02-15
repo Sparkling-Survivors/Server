@@ -53,5 +53,13 @@ public class PacketHandler
         
         RoomManager.Instance.LeaveRoom(leaveRoomPacket.RoomId, clientSession);
     }
-
+    
+    //클라이언트 헬스체크용 핑퐁 처리
+    public static void CS_PingPongHandler(PacketSession session, IMessage packet)
+    {
+        CS_PingPong pingPongPacket = packet as CS_PingPong;
+        ClientSession clientSession = session as ClientSession;
+        
+        clientSession.PingPong._isPong = true;
+    }
 }

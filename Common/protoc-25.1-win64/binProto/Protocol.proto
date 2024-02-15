@@ -106,8 +106,6 @@ message SC_LeaveRoom {
   int32 playerId=1; //방에서 나간 사람의 플레이어id
 }
 
-//TODO :SC_CONNECT_DEDICATED_SERVER 메시지구현
-
 message SC_PingPong {
 }
 

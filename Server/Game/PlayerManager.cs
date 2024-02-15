@@ -1,4 +1,4 @@
-﻿namespace Server.Game;
+﻿/*namespace Server.Game;
 
 public class PlayerManager
 {
@@ -14,7 +14,7 @@ public class PlayerManager
         
         lock (_lock)
         {
-            player.Info.PlayerId = _playerId;
+            player.Info.PlayerId = _playerId; 
             _players.Add(_playerId, player);
             _playerId++;
         }
@@ -41,4 +41,4 @@ public class PlayerManager
             return null;
         }
     }
-}
+}*/
