@@ -64,16 +64,17 @@ public class GameRoom
 
             SC_LeaveRoom leavePacket = new SC_LeaveRoom();
             leavePacket.PlayerId = player.Info.PlayerId;
+            
+            //본인 포함 방 인원 모두한테 나갔다는 정보 전송
+            foreach (Player p in _players)
+                p.Session.Send(leavePacket);
 
             _players.Remove(player);
             player.Room = null;
             
             //현재 방의 인원수 업데이트
             Info.CurrentCount = _players.Count;
-
-            //본인 포함 방 인원 모두한테 나갔다는 정보 전송
-            foreach (Player p in _players)
-                p.Session.Send(leavePacket);
+            
             
             if( _players.Count <= 0)
                 RoomManager.Instance.Remove(Info.RoomId);
