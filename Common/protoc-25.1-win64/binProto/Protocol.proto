@@ -15,16 +15,13 @@ enum MsgId {
   CS_LEAVE_ROOM = 7;
   SC_LEAVE_ROOM = 8;
   
-  SC_CONNECT_DEDICATED_SERVER = 9;
-  
-  SC_PING_PONG = 10;
-  CS_PING_PONG = 11;
-  DSC_PING_PONG = 12;
-  CDS_PING_PONG = 13;
-  
-  CS_QUIT_UNITY = 14;
-  CDS_QUIT_UNITY = 16;
-  
+  SC_PING_PONG = 9;
+  CS_PING_PONG = 10;
+  DSC_PING_PONG = 11;
+  CDS_PING_PONG = 12;
+
+  CS_CONNECT_DEDICATED_SERVER = 13; //게임 시작버튼을 클라에서 눌렀을때 데디서버로 연결을 요청함
+  SC_CONNECT_DEDICATED_SERVER = 14; 
 }
 
 enum ReasonRejected{
@@ -118,10 +115,12 @@ message DSC_PingPong {
 message CDS_PingPong {
 }
 
-message CS_QuitUnity {
+message CS_ConnectDedicatedServer {
+  int32 roomId = 1;
 }
 
-message CDS_QuitUnity {
+message SC_ConnectDedicatedServer {
+  string ip = 1;
+  int32 port = 2;
 }
-
 

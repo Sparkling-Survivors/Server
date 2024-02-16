@@ -47,18 +47,19 @@ namespace Google.Protobuf.Protocol {
             "MhQuUHJvdG9jb2wuUGxheWVySW5mbyIeCgxDU19MZWF2ZVJvb20SDgoGcm9v",
             "bUlkGAEgASgFIiAKDFNDX0xlYXZlUm9vbRIQCghwbGF5ZXJJZBgBIAEoBSIN",
             "CgtTQ19QaW5nUG9uZyINCgtDU19QaW5nUG9uZyIOCgxEU0NfUGluZ1Bvbmci",
-            "DgoMQ0RTX1BpbmdQb25nIg4KDENTX1F1aXRVbml0eSIPCg1DRFNfUXVpdFVu",
-            "aXR5KtMCCgVNc2dJZBIQCgxDU19ST09NX0xJU1QQABIQCgxTQ19ST09NX0xJ",
-            "U1QQARIQCgxDU19NQUtFX1JPT00QAhIQCgxTQ19NQUtFX1JPT00QAxIRCg1D",
-            "U19FTlRFUl9ST09NEAQSFwoTU0NfQUxMT1dfRU5URVJfUk9PTRAFEh4KGlND",
-            "X0lORk9STV9ORVdfRkFDRV9JTl9ST09NEAYSEQoNQ1NfTEVBVkVfUk9PTRAH",
-            "EhEKDVNDX0xFQVZFX1JPT00QCBIfChtTQ19DT05ORUNUX0RFRElDQVRFRF9T",
-            "RVJWRVIQCRIQCgxTQ19QSU5HX1BPTkcQChIQCgxDU19QSU5HX1BPTkcQCxIR",
-            "Cg1EU0NfUElOR19QT05HEAwSEQoNQ0RTX1BJTkdfUE9ORxANEhEKDUNTX1FV",
-            "SVRfVU5JVFkQDhISCg5DRFNfUVVJVF9VTklUWRAQKlsKDlJlYXNvblJlamVj",
-            "dGVkEhAKDFJvb21Ob3RFeGlzdBAAEhQKEEN1cnJlbnRseVBsYXlpbmcQARIO",
-            "CgpSb29tSXNGdWxsEAISEQoNV3JvbmdQYXNzd29yZBADQhuqAhhHb29nbGUu",
-            "UHJvdG9idWYuUHJvdG9jb2xiBnByb3RvMw=="));
+            "DgoMQ0RTX1BpbmdQb25nIisKGUNTX0Nvbm5lY3REZWRpY2F0ZWRTZXJ2ZXIS",
+            "DgoGcm9vbUlkGAEgASgFIjUKGVNDX0Nvbm5lY3REZWRpY2F0ZWRTZXJ2ZXIS",
+            "CgoCaXAYASABKAkSDAoEcG9ydBgCIAEoBSrNAgoFTXNnSWQSEAoMQ1NfUk9P",
+            "TV9MSVNUEAASEAoMU0NfUk9PTV9MSVNUEAESEAoMQ1NfTUFLRV9ST09NEAIS",
+            "EAoMU0NfTUFLRV9ST09NEAMSEQoNQ1NfRU5URVJfUk9PTRAEEhcKE1NDX0FM",
+            "TE9XX0VOVEVSX1JPT00QBRIeChpTQ19JTkZPUk1fTkVXX0ZBQ0VfSU5fUk9P",
+            "TRAGEhEKDUNTX0xFQVZFX1JPT00QBxIRCg1TQ19MRUFWRV9ST09NEAgSEAoM",
+            "U0NfUElOR19QT05HEAkSEAoMQ1NfUElOR19QT05HEAoSEQoNRFNDX1BJTkdf",
+            "UE9ORxALEhEKDUNEU19QSU5HX1BPTkcQDBIfChtDU19DT05ORUNUX0RFRElD",
+            "QVRFRF9TRVJWRVIQDRIfChtTQ19DT05ORUNUX0RFRElDQVRFRF9TRVJWRVIQ",
+            "DipbCg5SZWFzb25SZWplY3RlZBIQCgxSb29tTm90RXhpc3QQABIUChBDdXJy",
+            "ZW50bHlQbGF5aW5nEAESDgoKUm9vbUlzRnVsbBACEhEKDVdyb25nUGFzc3dv",
+            "cmQQA0IbqgIYR29vZ2xlLlByb3RvYnVmLlByb3RvY29sYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.MsgId), typeof(global::Google.Protobuf.Protocol.ReasonRejected), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -78,8 +79,8 @@ namespace Google.Protobuf.Protocol {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.CS_PingPong), global::Google.Protobuf.Protocol.CS_PingPong.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.DSC_PingPong), global::Google.Protobuf.Protocol.DSC_PingPong.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.CDS_PingPong), global::Google.Protobuf.Protocol.CDS_PingPong.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.CS_QuitUnity), global::Google.Protobuf.Protocol.CS_QuitUnity.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.CDS_QuitUnity), global::Google.Protobuf.Protocol.CDS_QuitUnity.Parser, null, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.CS_ConnectDedicatedServer), global::Google.Protobuf.Protocol.CS_ConnectDedicatedServer.Parser, new[]{ "RoomId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.SC_ConnectDedicatedServer), global::Google.Protobuf.Protocol.SC_ConnectDedicatedServer.Parser, new[]{ "Ip", "Port" }, null, null, null, null)
           }));
     }
     #endregion
@@ -96,13 +97,15 @@ namespace Google.Protobuf.Protocol {
     [pbr::OriginalName("SC_INFORM_NEW_FACE_IN_ROOM")] ScInformNewFaceInRoom = 6,
     [pbr::OriginalName("CS_LEAVE_ROOM")] CsLeaveRoom = 7,
     [pbr::OriginalName("SC_LEAVE_ROOM")] ScLeaveRoom = 8,
-    [pbr::OriginalName("SC_CONNECT_DEDICATED_SERVER")] ScConnectDedicatedServer = 9,
-    [pbr::OriginalName("SC_PING_PONG")] ScPingPong = 10,
-    [pbr::OriginalName("CS_PING_PONG")] CsPingPong = 11,
-    [pbr::OriginalName("DSC_PING_PONG")] DscPingPong = 12,
-    [pbr::OriginalName("CDS_PING_PONG")] CdsPingPong = 13,
-    [pbr::OriginalName("CS_QUIT_UNITY")] CsQuitUnity = 14,
-    [pbr::OriginalName("CDS_QUIT_UNITY")] CdsQuitUnity = 16,
+    [pbr::OriginalName("SC_PING_PONG")] ScPingPong = 9,
+    [pbr::OriginalName("CS_PING_PONG")] CsPingPong = 10,
+    [pbr::OriginalName("DSC_PING_PONG")] DscPingPong = 11,
+    [pbr::OriginalName("CDS_PING_PONG")] CdsPingPong = 12,
+    /// <summary>
+    ///게임 시작버튼을 클라에서 눌렀을때 데디서버로 연결을 요청함
+    /// </summary>
+    [pbr::OriginalName("CS_CONNECT_DEDICATED_SERVER")] CsConnectDedicatedServer = 13,
+    [pbr::OriginalName("SC_CONNECT_DEDICATED_SERVER")] ScConnectDedicatedServer = 14,
   }
 
   public enum ReasonRejected {
@@ -2694,11 +2697,11 @@ namespace Google.Protobuf.Protocol {
 
   }
 
-  public sealed partial class CS_QuitUnity : pb::IMessage<CS_QuitUnity> {
-    private static readonly pb::MessageParser<CS_QuitUnity> _parser = new pb::MessageParser<CS_QuitUnity>(() => new CS_QuitUnity());
+  public sealed partial class CS_ConnectDedicatedServer : pb::IMessage<CS_ConnectDedicatedServer> {
+    private static readonly pb::MessageParser<CS_ConnectDedicatedServer> _parser = new pb::MessageParser<CS_ConnectDedicatedServer>(() => new CS_ConnectDedicatedServer());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<CS_QuitUnity> Parser { get { return _parser; } }
+    public static pb::MessageParser<CS_ConnectDedicatedServer> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -2711,41 +2714,55 @@ namespace Google.Protobuf.Protocol {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CS_QuitUnity() {
+    public CS_ConnectDedicatedServer() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CS_QuitUnity(CS_QuitUnity other) : this() {
+    public CS_ConnectDedicatedServer(CS_ConnectDedicatedServer other) : this() {
+      roomId_ = other.roomId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CS_QuitUnity Clone() {
-      return new CS_QuitUnity(this);
+    public CS_ConnectDedicatedServer Clone() {
+      return new CS_ConnectDedicatedServer(this);
+    }
+
+    /// <summary>Field number for the "roomId" field.</summary>
+    public const int RoomIdFieldNumber = 1;
+    private int roomId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int RoomId {
+      get { return roomId_; }
+      set {
+        roomId_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as CS_QuitUnity);
+      return Equals(other as CS_ConnectDedicatedServer);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(CS_QuitUnity other) {
+    public bool Equals(CS_ConnectDedicatedServer other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (RoomId != other.RoomId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (RoomId != 0) hash ^= RoomId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2759,6 +2776,10 @@ namespace Google.Protobuf.Protocol {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (RoomId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(RoomId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2767,6 +2788,9 @@ namespace Google.Protobuf.Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (RoomId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RoomId);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -2774,9 +2798,12 @@ namespace Google.Protobuf.Protocol {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(CS_QuitUnity other) {
+    public void MergeFrom(CS_ConnectDedicatedServer other) {
       if (other == null) {
         return;
+      }
+      if (other.RoomId != 0) {
+        RoomId = other.RoomId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2789,17 +2816,21 @@ namespace Google.Protobuf.Protocol {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            RoomId = input.ReadInt32();
+            break;
+          }
         }
       }
     }
 
   }
 
-  public sealed partial class CDS_QuitUnity : pb::IMessage<CDS_QuitUnity> {
-    private static readonly pb::MessageParser<CDS_QuitUnity> _parser = new pb::MessageParser<CDS_QuitUnity>(() => new CDS_QuitUnity());
+  public sealed partial class SC_ConnectDedicatedServer : pb::IMessage<SC_ConnectDedicatedServer> {
+    private static readonly pb::MessageParser<SC_ConnectDedicatedServer> _parser = new pb::MessageParser<SC_ConnectDedicatedServer>(() => new SC_ConnectDedicatedServer());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<CDS_QuitUnity> Parser { get { return _parser; } }
+    public static pb::MessageParser<SC_ConnectDedicatedServer> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -2812,41 +2843,69 @@ namespace Google.Protobuf.Protocol {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CDS_QuitUnity() {
+    public SC_ConnectDedicatedServer() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CDS_QuitUnity(CDS_QuitUnity other) : this() {
+    public SC_ConnectDedicatedServer(SC_ConnectDedicatedServer other) : this() {
+      ip_ = other.ip_;
+      port_ = other.port_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CDS_QuitUnity Clone() {
-      return new CDS_QuitUnity(this);
+    public SC_ConnectDedicatedServer Clone() {
+      return new SC_ConnectDedicatedServer(this);
+    }
+
+    /// <summary>Field number for the "ip" field.</summary>
+    public const int IpFieldNumber = 1;
+    private string ip_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Ip {
+      get { return ip_; }
+      set {
+        ip_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "port" field.</summary>
+    public const int PortFieldNumber = 2;
+    private int port_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Port {
+      get { return port_; }
+      set {
+        port_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as CDS_QuitUnity);
+      return Equals(other as SC_ConnectDedicatedServer);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(CDS_QuitUnity other) {
+    public bool Equals(SC_ConnectDedicatedServer other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (Ip != other.Ip) return false;
+      if (Port != other.Port) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (Ip.Length != 0) hash ^= Ip.GetHashCode();
+      if (Port != 0) hash ^= Port.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2860,6 +2919,14 @@ namespace Google.Protobuf.Protocol {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (Ip.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Ip);
+      }
+      if (Port != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Port);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2868,6 +2935,12 @@ namespace Google.Protobuf.Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (Ip.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Ip);
+      }
+      if (Port != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Port);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -2875,9 +2948,15 @@ namespace Google.Protobuf.Protocol {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(CDS_QuitUnity other) {
+    public void MergeFrom(SC_ConnectDedicatedServer other) {
       if (other == null) {
         return;
+      }
+      if (other.Ip.Length != 0) {
+        Ip = other.Ip;
+      }
+      if (other.Port != 0) {
+        Port = other.Port;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2890,6 +2969,14 @@ namespace Google.Protobuf.Protocol {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 10: {
+            Ip = input.ReadString();
+            break;
+          }
+          case 16: {
+            Port = input.ReadInt32();
+            break;
+          }
         }
       }
     }

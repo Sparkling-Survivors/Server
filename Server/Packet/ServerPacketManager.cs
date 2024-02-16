@@ -33,8 +33,8 @@ class PacketManager
 		_handler.Add((ushort)MsgId.CsLeaveRoom, PacketHandler.CS_LeaveRoomHandler);		
 		_onRecv.Add((ushort)MsgId.CsPingPong, MakePacket<CS_PingPong>);
 		_handler.Add((ushort)MsgId.CsPingPong, PacketHandler.CS_PingPongHandler);		
-		//_onRecv.Add((ushort)MsgId.CsQuitUnity, MakePacket<CS_QuitUnity>);
-		//_handler.Add((ushort)MsgId.CsQuitUnity, PacketHandler.CS_QuitUnityHandler);
+		_onRecv.Add((ushort)MsgId.CsConnectDedicatedServer, MakePacket<CS_ConnectDedicatedServer>);
+		_handler.Add((ushort)MsgId.CsConnectDedicatedServer, PacketHandler.CS_ConnectDedicatedServerHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

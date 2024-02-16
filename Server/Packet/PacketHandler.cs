@@ -62,4 +62,19 @@ public class PacketHandler
         
         clientSession.PingPong._isPong = true;
     }
+    
+    //클라이언트에서 방에 사람이 모여서 게임시작 요청을 했을때, 해당 방 사람들에게 데디서버 정보를 알려줘서 접속시킴
+    //***********   여기서 새로운 데디서버 프로세스를 생성하고 해당 정보를 넘겨주어야함 !! ******************
+    public static void CS_ConnectDedicatedServerHandler(PacketSession session, IMessage packet)
+    {
+        CS_ConnectDedicatedServer connectDedicatedServerPacket = packet as CS_ConnectDedicatedServer;
+        ClientSession clientSession = session as ClientSession;
+        
+        //TODO : 데디서버 프로세스 생성. (지금은 임의로 켜놓은 서버로 테스트)
+        SC_ConnectDedicatedServer sendPacket =DedicatedServerManager.Instance.CreateDediServer();
+        
+        //임시로 데디서버 정보를 만들어서 클라이언트에게 보냄
+
+    }
+    
 }
