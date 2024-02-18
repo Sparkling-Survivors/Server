@@ -9,7 +9,10 @@ public class GameRoom
     public RoomInfo Info { get; set; } = new RoomInfo();
     public string Password { get; set; }
 
-    List<Player> _players = new List<Player>(); //방에 있는 플레이어 리스트
+    public List<Player> _players = new List<Player>(); //방에 있는 플레이어 리스트
+
+    public DedicatedServerInfo _dedicatedServerInfo;  //해당 방에 연결된 데디케이티드 서버 정보
+    
 
     public void EnterRoom(ClientSession session, string name)
     {
@@ -27,6 +30,7 @@ public class GameRoom
             newPlayer.Info.Transform = null;
             newPlayer.Room = this;
             newPlayer.Session = session;
+            session.MyPlayer= newPlayer; //세션에 플레이어 정보 저장
             
             //현재 방의 인원수 업데이트
             _players.Add(newPlayer);
@@ -75,21 +79,11 @@ public class GameRoom
             //현재 방의 인원수 업데이트
             Info.CurrentCount = _players.Count;
             
+            //해당 클라세션에서 플레이어 정보 삭제
+            session.MyPlayer = null;
             
             if( _players.Count <= 0)
                 RoomManager.Instance.Remove(Info.RoomId);
-        }
-    }
-    
-    public void ConnectToDedicatedServer()
-    {
-        if(_players.Count<=0)
-            return;
-        
-        //TODO : 방에 있는 플레이어들을 전부 dedicated server로 연결
-        foreach (Player player in _players)
-        {
-            ClientSession clientSession = player.Session;
         }
     }
     

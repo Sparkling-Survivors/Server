@@ -1,4 +1,5 @@
-﻿using Google.Protobuf.Protocol;
+﻿using System.ComponentModel.Design;
+using Google.Protobuf.Protocol;
 
 namespace Server.Game;
 
@@ -24,6 +25,8 @@ public class RoomManager
             gameRoom.Info.IsPrivate = isPrivate;
             gameRoom.Password = password;
             gameRoom.Info.IsPlaying = false;
+            gameRoom._dedicatedServerInfo._ip = null;
+            gameRoom._dedicatedServerInfo._port = -1;
             _rooms.Add(_roomId, gameRoom);
             _roomId++;
         }
@@ -96,6 +99,17 @@ public class RoomManager
             return _rooms.Remove(roomId);
         }
     }
+    
+    public void SetRoomPlaying(int roomId)
+    {
+        lock (_lock)
+        {
+            if (_rooms.ContainsKey(roomId))
+            {
+                _rooms[roomId].Info.IsPlaying = true;
+            }
+        }
+    }
 
     public GameRoom Find(int roomId)
     {
@@ -106,12 +120,23 @@ public class RoomManager
         return null;
     }
     
-    public void ConnectToDedicatedServer(int roomId)
+    /// <summary>
+    /// 해당 클라이언트 세션이 속한 방을 찾아서 반환
+    /// </summary>
+    /// <param name="clientSessionSessionId"></param>
+    /// <returns>속한 방이 없다면 null을 반환함</returns>
+    public GameRoom FindRoomByClientSession(ClientSession clientSession)
     {
-        GameRoom room = Find(roomId);
-        if (room == null)
-            return;
-        
-        room.ConnectToDedicatedServer();
+        if(clientSession!=null && clientSession.MyPlayer!=null && clientSession.MyPlayer.Room!=null)
+        {
+            GameRoom room = clientSession.MyPlayer.Room;
+            return room;
+        }
+        else
+        {
+            return null;
+        }
     }
+    
+
 }
