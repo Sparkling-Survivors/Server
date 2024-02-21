@@ -27,6 +27,8 @@ enum MsgId {
   DSC_ALLOW_ENTER_GAME = 16; //데디서버로부터 인게임 접속 가능여부 응답
   
   DSC_INFORM_NEW_FACE_IN_DEDICATED_SERVER = 17; //데디서버로부터 새로운 플레이어가 접속했다는 정보
+  
+  DSC_INFORM_LEAVE_DEDICATED_SERVER = 18; //데디서버로부터 플레이어가 나갔다는 정보
 }
 
 enum ReasonRejected{
@@ -141,5 +143,9 @@ message DSC_AllowEnterGame {
 
 message DSC_InformNewFaceInDedicatedServer{
   PlayerInfo newPlayer = 1;
+}
+
+message DSC_InformLeaveDedicatedServer{
+  int32 leavePlayerId = 1;
 }
 
