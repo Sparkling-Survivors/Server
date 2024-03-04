@@ -27,7 +27,6 @@ public class GameRoom
             Player newPlayer = new Player();
             newPlayer.Info.PlayerId = session.SessionId;
             newPlayer.Info.Name = name;
-            newPlayer.Info.Transform = null;
             newPlayer.Room = this;
             newPlayer.Session = session;
             session.MyPlayer= newPlayer; //세션에 플레이어 정보 저장
