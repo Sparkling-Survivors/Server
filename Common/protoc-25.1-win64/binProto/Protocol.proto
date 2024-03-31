@@ -141,10 +141,12 @@ message CDS_AllowEnterGame {
 message DSC_AllowEnterGame {
   int32 myDedicatedPlayerId = 1;
   repeated PlayerInfo players = 2;
+  map <int32, TransformInfo> playerTransforms = 3; //[플레이어id, transform]
 }
 
 message DSC_InformNewFaceInDedicatedServer{
   PlayerInfo newPlayer = 1;
+  TransformInfo spawnTransform = 2;
 }
 
 message DSC_InformLeaveDedicatedServer{
