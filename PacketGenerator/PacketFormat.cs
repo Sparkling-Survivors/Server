@@ -7,7 +7,6 @@ class PacketFormat
     public static string managerFormat =
         @"using Google.Protobuf;
 using Google.Protobuf.Protocol;
-using ServerCore;
 using System;
 using System.Collections.Generic;
 

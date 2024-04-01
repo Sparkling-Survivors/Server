@@ -1,6 +1,5 @@
 using Google.Protobuf;
 using Google.Protobuf.Protocol;
-using ServerCore;
 using System;
 using System.Collections.Generic;
 
@@ -44,7 +43,9 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.DscInformNewFaceInDedicatedServer, MakePacket<DSC_InformNewFaceInDedicatedServer>);
 		_handler.Add((ushort)MsgId.DscInformNewFaceInDedicatedServer, PacketHandler.DSC_InformNewFaceInDedicatedServerHandler);		
 		_onRecv.Add((ushort)MsgId.DscInformLeaveDedicatedServer, MakePacket<DSC_InformLeaveDedicatedServer>);
-		_handler.Add((ushort)MsgId.DscInformLeaveDedicatedServer, PacketHandler.DSC_InformLeaveDedicatedServerHandler);
+		_handler.Add((ushort)MsgId.DscInformLeaveDedicatedServer, PacketHandler.DSC_InformLeaveDedicatedServerHandler);		
+		_onRecv.Add((ushort)MsgId.DscMove, MakePacket<DSC_Move>);
+		_handler.Add((ushort)MsgId.DscMove, PacketHandler.DSC_MoveHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
