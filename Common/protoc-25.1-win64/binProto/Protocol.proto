@@ -46,14 +46,22 @@ message PlayerInfo {
   string name = 2;
 }
 
-message TransformInfo{
+message PositionInfo {
   float posX = 1;
   float posY = 2;
   float posZ = 3;
-  float rotX = 4;
-  float rotY = 5;
-  float rotZ = 6;
-  float rotW = 7;
+}
+
+message RotationInfo {
+  float rotX = 1;
+  float rotY = 2;
+  float rotZ = 3;
+  float rotW = 4;
+}
+
+message TransformInfo{
+  PositionInfo position = 1;
+  RotationInfo rotation = 2;
 }
 
 message RoomInfo {
@@ -156,14 +164,15 @@ message DSC_InformLeaveDedicatedServer{
 
 message CDS_Move{
   int32 myDediplayerId = 1; //이거 아마 지워도될듯?
-  TransformInfo transform = 2;
+  TransformInfo ghostTransform = 2; //고스트의 transform 정보
   int32 keyboardInput = 3;
-  int64 utcTimeStamp = 4; //이것도 아마 지워도될듯?
+  RotationInfo playerRotation = 4; //플레이어의 회전정보
 }
 
 message DSC_Move{
   int32 playerId = 1;
-  TransformInfo transform = 2;
+  TransformInfo ghostTransform = 2; //고스트의 transform 정보
   int32 keyboardInput = 3;
+  RotationInfo playerRotation = 4; //플레이어의 회전정보
 }
 
