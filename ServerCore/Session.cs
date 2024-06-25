@@ -39,7 +39,7 @@ public abstract class PacketSession : Session
         
         if(packetCount>1)
             Console.WriteLine($"패킷 모아 보내기 : {packetCount}");
-
+        
         return processLen; //처리한 바이트수를 리턴
     }
 

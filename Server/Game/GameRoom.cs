@@ -67,22 +67,36 @@ public class GameRoom
 
             SC_LeaveRoom leavePacket = new SC_LeaveRoom();
             leavePacket.PlayerId = player.Info.PlayerId;
-            
+
+            //만약 방장이 나간거면, 방장을 다른 사람에게 넘겨줌
+            if (player.Info.PlayerId == Info.RoomMasterPlayerId && _players.Count > 1)
+            {
+                Info.RoomMasterPlayerId = _players.Find(x => x.Info.PlayerId != Info.RoomMasterPlayerId).Info.PlayerId;
+                leavePacket.RoomMasterPlayerId = Info.RoomMasterPlayerId;
+            }
+            //방장이 아닌 사람이 나갔을때는 방장이 바뀌지 않음 or 1명남았는데 그 사람이 나갔을때 
+            else
+            {
+                leavePacket.RoomMasterPlayerId = Info.RoomMasterPlayerId;
+            }
+
             //본인 포함 방 인원 모두한테 나갔다는 정보 전송
             foreach (Player p in _players)
                 p.Session.Send(leavePacket);
 
             _players.Remove(player);
             player.Room = null;
-            
+
             //현재 방의 인원수 업데이트
             Info.CurrentCount = _players.Count;
-            
+
             //해당 클라세션에서 플레이어 정보 삭제
             session.MyPlayer = null;
-            
-            if( _players.Count <= 0)
+
+            //만약에 방에 아무도 없게된다면 방을 삭제함
+            if (_players.Count <= 0)
                 RoomManager.Instance.Remove(Info.RoomId);
+            
         }
     }
     

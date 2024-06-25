@@ -30,7 +30,7 @@ public class PacketHandler
         ClientSession clientSession = session as ClientSession;
         
         SC_MakeRoom sendPacket = new SC_MakeRoom();
-        GameRoom newRoom = RoomManager.Instance.MakeRoom(makeRoomPacket.Title, makeRoomPacket.IsPrivate, makeRoomPacket.Password);
+        GameRoom newRoom = RoomManager.Instance.MakeRoom(makeRoomPacket.Title, makeRoomPacket.IsPrivate, makeRoomPacket.Password, clientSession.SessionId);
 
         sendPacket.Room = newRoom.Info;
         sendPacket.Password = makeRoomPacket.Password;

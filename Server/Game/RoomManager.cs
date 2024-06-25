@@ -10,9 +10,9 @@ public class RoomManager
     object _lock = new object();
     public Dictionary<int, GameRoom> _rooms = new Dictionary<int, GameRoom>();
     int _roomId = 1;
-    int _maxPerRoomCount = 4; //한 방당 최대 인원수
+    int _maxPerRoomCount = 8; //한 방당 최대 인원수
 
-    public GameRoom MakeRoom(string title, bool isPrivate = false, string password = "")
+    public GameRoom MakeRoom(string title, bool isPrivate = false, string password = "", int clientSessionSessionId = -1)
     {
         GameRoom gameRoom = new GameRoom();
 
@@ -27,6 +27,7 @@ public class RoomManager
             gameRoom.Info.IsPlaying = false;
             gameRoom._dedicatedServerInfo._ip = null;
             gameRoom._dedicatedServerInfo._port = -1;
+            gameRoom.Info.RoomMasterPlayerId = clientSessionSessionId; //최초 방장은 방 생성한 플레이어의 sessionID임.
             _rooms.Add(_roomId, gameRoom);
             _roomId++;
         }

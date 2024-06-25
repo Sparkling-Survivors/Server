@@ -44,8 +44,22 @@ class PacketManager
 		_handler.Add((ushort)MsgId.DscInformNewFaceInDedicatedServer, PacketHandler.DSC_InformNewFaceInDedicatedServerHandler);		
 		_onRecv.Add((ushort)MsgId.DscInformLeaveDedicatedServer, MakePacket<DSC_InformLeaveDedicatedServer>);
 		_handler.Add((ushort)MsgId.DscInformLeaveDedicatedServer, PacketHandler.DSC_InformLeaveDedicatedServerHandler);		
+		_onRecv.Add((ushort)MsgId.DscStartGame, MakePacket<DSC_StartGame>);
+		_handler.Add((ushort)MsgId.DscStartGame, PacketHandler.DSC_StartGameHandler);		
 		_onRecv.Add((ushort)MsgId.DscMove, MakePacket<DSC_Move>);
-		_handler.Add((ushort)MsgId.DscMove, PacketHandler.DSC_MoveHandler);
+		_handler.Add((ushort)MsgId.DscMove, PacketHandler.DSC_MoveHandler);		
+		_onRecv.Add((ushort)MsgId.DscDaytimerstart, MakePacket<DSC_Daytimerstart>);
+		_handler.Add((ushort)MsgId.DscDaytimerstart, PacketHandler.DSC_DaytimerstartHandler);		
+		_onRecv.Add((ushort)MsgId.DscDaytimersync, MakePacket<DSC_Daytimersync>);
+		_handler.Add((ushort)MsgId.DscDaytimersync, PacketHandler.DSC_DaytimersyncHandler);		
+		_onRecv.Add((ushort)MsgId.DscDaytimerend, MakePacket<DSC_Daytimerend>);
+		_handler.Add((ushort)MsgId.DscDaytimerend, PacketHandler.DSC_DaytimerendHandler);		
+		_onRecv.Add((ushort)MsgId.DscNighttimerstart, MakePacket<DSC_Nighttimerstart>);
+		_handler.Add((ushort)MsgId.DscNighttimerstart, PacketHandler.DSC_NighttimerstartHandler);		
+		_onRecv.Add((ushort)MsgId.DscNighttimersync, MakePacket<DSC_Nighttimersync>);
+		_handler.Add((ushort)MsgId.DscNighttimersync, PacketHandler.DSC_NighttimersyncHandler);		
+		_onRecv.Add((ushort)MsgId.DscNighttimerend, MakePacket<DSC_Nighttimerend>);
+		_handler.Add((ushort)MsgId.DscNighttimerend, PacketHandler.DSC_NighttimerendHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

@@ -22,16 +22,26 @@ enum MsgId {
 
   CS_CONNECT_DEDICATED_SERVER = 13; //게임 시작버튼을 클라에서 눌렀을때 룸서버에게 데디서버 생성 및 정보 요청
   SC_CONNECT_DEDICATED_SERVER = 14; //룸서버로부터 데디서버 생성 및 관련 정보 응답
+
+  CDS_INFORM_ROOM_INFO = 15; //방장이 데디서버에게 방정보 전달
   
-  CDS_ALLOW_ENTER_GAME = 15; //데디서버에게 인게임 접속 요청
-  DSC_ALLOW_ENTER_GAME = 16; //데디서버로부터 인게임 접속 가능여부 응답
+  CDS_ALLOW_ENTER_GAME = 16; //데디서버에게 인게임 접속 요청
+  DSC_ALLOW_ENTER_GAME = 17; //데디서버로부터 인게임 접속 가능여부 응답
   
-  DSC_INFORM_NEW_FACE_IN_DEDICATED_SERVER = 17; //데디서버로부터 새로운 플레이어가 접속했다는 정보
+  DSC_INFORM_NEW_FACE_IN_DEDICATED_SERVER = 18; //데디서버로부터 새로운 플레이어가 접속했다는 정보
+  DSC_INFORM_LEAVE_DEDICATED_SERVER = 19; //데디서버로부터 플레이어가 나갔다는 정보
   
-  DSC_INFORM_LEAVE_DEDICATED_SERVER = 18; //데디서버로부터 플레이어가 나갔다는 정보
+  DSC_START_GAME = 20; //데디서버가 클라에게 게임 시작 정보 전달
   
-  CDS_MOVE = 19; //데디서버에게 플레이어의 이동정보 전송
-  DSC_MOVE = 20; //데디서버로부터 플레이어의 이동정보 전달
+  CDS_MOVE = 21; //데디서버에게 플레이어의 이동정보 전송
+  DSC_MOVE = 22; //데디서버로부터 플레이어의 이동정보 전달
+  
+  DSC_DayTimerStart = 23; //데디서버가 낮 타이머 시작을 클라들에게 전달
+  DSC_DayTimerSync = 24; //데디서버가 낮 타이머 동기화정보를 클라들에게 전달
+  DSC_DayTimerEnd = 25; //데디서버가 낮 타이머 종료를 클라들에게 전달
+  DSC_NightTimerStart = 26; //데디서버가 밤 타이머 시작을 클라들에게 전달
+  DSC_NightTimerSync = 27; //데디서버가 밤 타이머 동기화정보를 클라들에게 전달
+  DSC_NightTimerEnd = 28; //데디서버가 밤 타이머 종료를 클라들에게 전달
 }
 
 enum ReasonRejected{
@@ -71,6 +81,7 @@ message RoomInfo {
   int32 maxCount = 4;
   bool isPrivate = 5;
   bool isPlaying = 6;
+  int32 roomMasterPlayerId = 7;
 }
 
 message CS_RoomList {
@@ -119,6 +130,7 @@ message CS_LeaveRoom {
 
 message SC_LeaveRoom {
   int32 playerId=1; //방에서 나간 사람의 플레이어id
+  int32 roomMasterPlayerId = 2; //방장의 플레이어id (방장이 나갔을수도 있으니 새로 갱신)
 }
 
 message SC_PingPong {
@@ -140,6 +152,11 @@ message CS_ConnectDedicatedServer {
 message SC_ConnectDedicatedServer {
   string ip = 1;
   int32 port = 2;
+}
+
+message CDS_InformRoomInfo {
+  int32 roomId = 1;
+  int32 playerNum = 2;
 }
 
 message CDS_AllowEnterGame {
