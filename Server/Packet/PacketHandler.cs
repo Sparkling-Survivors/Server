@@ -71,18 +71,23 @@ public class PacketHandler
         CS_ConnectDedicatedServer connectDedicatedServerPacket = packet as CS_ConnectDedicatedServer;
         ClientSession clientSession = session as ClientSession; //방장 클라이언트가 될 예정
         
-        //TODO : 데디서버 프로세스 생성. (지금은 임의로 켜놓은 서버로 테스트)
-        SC_ConnectDedicatedServer sendPacket =DedicatedServerManager.Instance.CreateDedicatedServer();
-        
-        //임시로 데디서버 정보를 만들어서 클라이언트에게 보냄
-        //해당 방장의 room을 찾은뒤, 그 방에 있는 모든 클라이언트에게 데디서버 정보를 보냄
-        //room의 상태를 게임중으로 바꿔줌
-        GameRoom room = RoomManager.Instance.FindRoomByClientSession(clientSession);
-        if(room!=null)
+        //방장일 경우에만 데디서버 생성 및 정보 뿌리기를 허용
+        if (RoomManager.Instance.IsMaster(connectDedicatedServerPacket.RoomId, clientSession))
         {
-            DedicatedServerManager.Instance.SendDedicatedServerConnectInfo(room, sendPacket);
-            RoomManager.Instance.SetRoomPlaying(room.Info.RoomId);
+            //TODO : 데디서버 프로세스 생성. (지금은 임의로 켜놓은 서버로 테스트)
+            SC_ConnectDedicatedServer sendPacket =DedicatedServerManager.Instance.CreateDedicatedServer();
+        
+            //임시로 데디서버 정보를 만들어서 클라이언트에게 보냄
+            //해당 방장의 room을 찾은뒤, 그 방에 있는 모든 클라이언트에게 데디서버 정보를 보냄
+            //room의 상태를 게임중으로 바꿔줌
+            GameRoom room = RoomManager.Instance.FindRoomByClientSession(clientSession);
+            if(room!=null)
+            {
+                DedicatedServerManager.Instance.SendDedicatedServerConnectInfo(room, sendPacket);
+                RoomManager.Instance.SetRoomPlaying(room.Info.RoomId);
+            }
         }
+        
     }
     
 }

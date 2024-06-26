@@ -162,6 +162,7 @@ message CDS_InformRoomInfo {
 message CDS_AllowEnterGame {
   int32 roomId = 1;
   string name = 2;
+  
 }
 
 message DSC_AllowEnterGame {
@@ -177,6 +178,9 @@ message DSC_InformNewFaceInDedicatedServer{
 
 message DSC_InformLeaveDedicatedServer{
   int32 leavePlayerId = 1;
+}
+
+message DSC_StartGame{
 }
 
 message CDS_Move{

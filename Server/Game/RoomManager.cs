@@ -139,5 +139,18 @@ public class RoomManager
         }
     }
     
+    /// <summary>
+    /// 특정 roomid의 방장이 특정 clientsession과 동일한지 확인
+    /// </summary>
+    /// <param name="roomId">방 번호</param>
+    /// <param name="clientSession">클라이언트 세션</param>
+    /// <returns></returns>
+    public bool IsMaster(int roomId, ClientSession clientSession)
+    {
+        if (!_rooms.ContainsKey(roomId))
+            return false;
 
+        GameRoom gameRoom = _rooms[roomId];
+        return gameRoom.Info.RoomMasterPlayerId == clientSession.SessionId;
+    }
 }
