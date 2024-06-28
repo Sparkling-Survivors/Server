@@ -36,12 +36,16 @@ enum MsgId {
   CDS_MOVE = 21; //데디서버에게 플레이어의 이동정보 전송
   DSC_MOVE = 22; //데디서버로부터 플레이어의 이동정보 전달
   
-  DSC_DayTimerStart = 23; //데디서버가 낮 타이머 시작을 클라들에게 전달
-  DSC_DayTimerSync = 24; //데디서버가 낮 타이머 동기화정보를 클라들에게 전달
-  DSC_DayTimerEnd = 25; //데디서버가 낮 타이머 종료를 클라들에게 전달
-  DSC_NightTimerStart = 26; //데디서버가 밤 타이머 시작을 클라들에게 전달
-  DSC_NightTimerSync = 27; //데디서버가 밤 타이머 동기화정보를 클라들에게 전달
-  DSC_NightTimerEnd = 28; //데디서버가 밤 타이머 종료를 클라들에게 전달
+  DSC_DAY_TIMER_START = 23; //데디서버가 낮 타이머 시작을 클라들에게 전달
+  DSC_DAY_TIMER_SYNC = 24; //데디서버가 낮 타이머 동기화정보를 클라들에게 전달
+  DSC_DAY_TIMER_END = 25; //데디서버가 낮 타이머 종료를 클라들에게 전달
+  DSC_NIGHT_TIMER_START = 26; //데디서버가 밤 타이머 시작을 클라들에게 전달
+  DSC_NIGHT_TIMER_SYNC = 27; //데디서버가 밤 타이머 동기화정보를 클라들에게 전달
+  DSC_NIGHT_TIMER_END = 28; //데디서버가 밤 타이머 종료를 클라들에게 전달
+  
+  DSC_NEW_CHESTS_INFO = 29; //데디서버가 새로운 상자들 정보를 클라들에게 전달 (낮에 상자 초기화 용)
+  CDS_TRY_CHEST_OPEN = 30; //클라가 데디서버에게 상자 열기 요청
+  DSC_CHEST_OPEN_SUCCESS = 31; //데디서버가 모든 클라에게 상자 열기 성공 결과 전달
 }
 
 enum ReasonRejected{
@@ -82,6 +86,12 @@ message RoomInfo {
   bool isPrivate = 5;
   bool isPlaying = 6;
   int32 roomMasterPlayerId = 7;
+}
+
+message ChestInfo{
+  int32 chestId = 1;
+  int32 chestLevel = 2;
+  int32 chestPoint = 3;
 }
 
 message CS_RoomList {
@@ -195,5 +205,19 @@ message DSC_Move{
   TransformInfo ghostTransform = 2; //고스트의 transform 정보
   int32 keyboardInput = 3;
   RotationInfo playerRotation = 4; //플레이어의 회전정보
+}
+
+message DSC_NewChestsInfo{
+  map<int32, ChestInfo> chestsInfo = 1; //상자들의 정보
+}
+
+message CDS_TryChestOpen{
+  int32 myDediplayerId = 1; 
+  int32 chestId = 2;
+}
+
+message DSC_ChestOpenSuccess{
+  int32 chestId = 1; //열린 상자의 id
+  int32 playerId = 2; //상자를 열은 플레이어의 id
 }
 
