@@ -46,6 +46,9 @@ enum MsgId {
   DSC_NEW_CHESTS_INFO = 29; //데디서버가 새로운 상자들 정보를 클라들에게 전달 (낮에 상자 초기화 용)
   CDS_TRY_CHEST_OPEN = 30; //클라가 데디서버에게 상자 열기 요청
   DSC_CHEST_OPEN_SUCCESS = 31; //데디서버가 모든 클라에게 상자 열기 성공 결과 전달
+  
+  CDS_REQUEST_TIMESTAMP = 32; //클라가 데디서버에게 타임스탬프 요청
+  DSC_RESPONSE_TIMESTAMP = 33; //데디서버가 클라에게 타임스탬프 응답
 }
 
 enum ReasonRejected{
@@ -92,6 +95,12 @@ message ChestInfo{
   int32 chestId = 1;
   int32 chestLevel = 2;
   int32 chestPoint = 3;
+}
+
+message Velocity{
+  float x = 1;
+  float y = 2;
+  float z = 3;
 }
 
 message CS_RoomList {
@@ -194,17 +203,19 @@ message DSC_StartGame{
 }
 
 message CDS_Move{
-  int32 myDediplayerId = 1; //이거 아마 지워도될듯?
-  TransformInfo ghostTransform = 2; //고스트의 transform 정보
+  int32 dediplayerId = 1; //이거 아마 지워도될듯?
+  TransformInfo transformInfo = 2; //플레이어의 transform 정보
   int32 keyboardInput = 3;
-  RotationInfo playerRotation = 4; //플레이어의 회전정보
+  Velocity velocity = 4; //속도
+  google.protobuf.Timestamp timestamp = 5; //서버시간으로 동기화된 타임스탬프 
 }
 
 message DSC_Move{
-  int32 playerId = 1;
-  TransformInfo ghostTransform = 2; //고스트의 transform 정보
+  int32 dediplayerId = 1;
+  TransformInfo transformInfo = 2; //transform 정보
   int32 keyboardInput = 3;
-  RotationInfo playerRotation = 4; //플레이어의 회전정보
+  Velocity velocity = 4; //속도
+  google.protobuf.Timestamp timestamp = 5; //서버시간으로 동기화된 타임스탬프 
 }
 
 message DSC_NewChestsInfo{
@@ -219,5 +230,12 @@ message CDS_TryChestOpen{
 message DSC_ChestOpenSuccess{
   int32 chestId = 1; //열린 상자의 id
   int32 playerId = 2; //상자를 열은 플레이어의 id
+}
+
+message CDS_RequestTimestamp{
+}
+
+message DSC_ResponseTimestamp{
+  google.protobuf.Timestamp timestamp = 1;
 }
 
