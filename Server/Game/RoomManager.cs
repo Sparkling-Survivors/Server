@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Design;
+using Google.Protobuf;
 using Google.Protobuf.Protocol;
 
 namespace Server.Game;
@@ -152,5 +153,15 @@ public class RoomManager
 
         GameRoom gameRoom = _rooms[roomId];
         return gameRoom.Info.RoomMasterPlayerId == clientSession.SessionId;
+    }
+    
+    //특정 방에 있는 모든 클라이언트에게 패킷을 보냄
+    public void Broadcast(int roomId, IMessage packet)
+    {
+        if (!_rooms.ContainsKey(roomId))
+            return;
+
+        GameRoom room = _rooms[roomId];
+        room.BroadCast(packet);
     }
 }

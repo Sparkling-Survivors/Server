@@ -32,6 +32,8 @@ class PacketManager
 		_handler.Add((ushort)MsgId.ScInformNewFaceInRoom, PacketHandler.SC_InformNewFaceInRoomHandler);		
 		_onRecv.Add((ushort)MsgId.ScLeaveRoom, MakePacket<SC_LeaveRoom>);
 		_handler.Add((ushort)MsgId.ScLeaveRoom, PacketHandler.SC_LeaveRoomHandler);		
+		_onRecv.Add((ushort)MsgId.ScReadyRoom, MakePacket<SC_ReadyRoom>);
+		_handler.Add((ushort)MsgId.ScReadyRoom, PacketHandler.SC_ReadyRoomHandler);		
 		_onRecv.Add((ushort)MsgId.ScPingPong, MakePacket<SC_PingPong>);
 		_handler.Add((ushort)MsgId.ScPingPong, PacketHandler.SC_PingPongHandler);		
 		_onRecv.Add((ushort)MsgId.DscPingPong, MakePacket<DSC_PingPong>);

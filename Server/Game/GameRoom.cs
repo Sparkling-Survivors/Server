@@ -1,4 +1,5 @@
-﻿using Google.Protobuf.Collections;
+﻿using Google.Protobuf;
+using Google.Protobuf.Collections;
 using Google.Protobuf.Protocol;
 
 namespace Server.Game;
@@ -13,7 +14,13 @@ public class GameRoom
 
     public DedicatedServerInfo _dedicatedServerInfo;  //해당 방에 연결된 데디케이티드 서버 정보
     
-
+    public void BroadCast(IMessage packet)
+    {
+        foreach (Player player in _players)
+        {
+            player.Session.Send(packet);
+        }
+    }
     public void EnterRoom(ClientSession session, string name)
     {
         if (session == null)

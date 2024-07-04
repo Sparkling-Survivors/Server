@@ -54,6 +54,18 @@ public class PacketHandler
         RoomManager.Instance.LeaveRoom(leaveRoomPacket.RoomId, clientSession);
     }
     
+    //클라가 준비완료를 눌렀거나 준비 취소를 눌렀을때 처리
+    public static void CS_ReadyRoomHandler(PacketSession session, IMessage packet)
+    {
+        CS_ReadyRoom readyRoomPacket = packet as CS_ReadyRoom;
+        ClientSession clientSession = session as ClientSession;
+        
+        //TODO: 누가 준비했고 안했는지 정보를 저장해야 함
+        
+        //방에 있는 모든 클라이언트에게 준비 관련 정보를 보냄
+        
+    }
+    
     //클라이언트 헬스체크용 핑퐁 처리
     public static void CS_PingPongHandler(PacketSession session, IMessage packet)
     {
