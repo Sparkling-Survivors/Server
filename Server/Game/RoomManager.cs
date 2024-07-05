@@ -155,6 +155,31 @@ public class RoomManager
         return gameRoom.Info.RoomMasterPlayerId == clientSession.SessionId;
     }
     
+    /// <summary>
+    /// 특정 roomid에서 특정playerId가 레디정보를 알렸을때 처리
+    /// </summary>
+    /// <param name="roomId">방id</param>
+    /// <param name="playerId">플레이어id</param>
+    /// <param name="isReady">레디 완료면true, 레디취소면 false</param>
+    public void ProcessReady(int roomId, int playerId, bool isReady)
+    {
+        if (_rooms.ContainsKey(roomId))
+        {
+            _rooms[roomId].ProcessReady(playerId, isReady);
+        }
+    }
+    
+    //특정 방의 방장을 제외한 인원 모두가 ready상태인지 확인하는 함수
+    public bool IsAllReady(int roomId)
+    {
+        if (_rooms.ContainsKey(roomId))
+        {
+            return _rooms[roomId].IsAllReady();
+        }
+
+        return false;
+    }
+    
     //특정 방에 있는 모든 클라이언트에게 패킷을 보냄
     public void Broadcast(int roomId, IMessage packet)
     {

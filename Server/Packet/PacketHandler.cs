@@ -54,16 +54,18 @@ public class PacketHandler
         RoomManager.Instance.LeaveRoom(leaveRoomPacket.RoomId, clientSession);
     }
     
-    //클라가 준비완료를 눌렀거나 준비 취소를 눌렀을때 처리
+    //클라가 레디완료를 눌렀거나 레디취소를 눌렀을때 처리
     public static void CS_ReadyRoomHandler(PacketSession session, IMessage packet)
     {
         CS_ReadyRoom readyRoomPacket = packet as CS_ReadyRoom;
         ClientSession clientSession = session as ClientSession;
         
-        //TODO: 누가 준비했고 안했는지 정보를 저장해야 함
+        int roomId = readyRoomPacket.RoomId;
+        int playerId = readyRoomPacket.PlayerId;
+        bool isReady = readyRoomPacket.IsReady;
         
-        //방에 있는 모든 클라이언트에게 준비 관련 정보를 보냄
-        
+        //방에 레디 관련 처리를 한 다음, 모두에게 관련 정보를 보냄
+        RoomManager.Instance.ProcessReady(roomId, playerId, isReady);
     }
     
     //클라이언트 헬스체크용 핑퐁 처리
@@ -83,8 +85,8 @@ public class PacketHandler
         CS_ConnectDedicatedServer connectDedicatedServerPacket = packet as CS_ConnectDedicatedServer;
         ClientSession clientSession = session as ClientSession; //방장 클라이언트가 될 예정
         
-        //방장일 경우에만 데디서버 생성 및 정보 뿌리기를 허용
-        if (RoomManager.Instance.IsMaster(connectDedicatedServerPacket.RoomId, clientSession))
+        //방장일 경우에만 데디서버 생성 및 정보 뿌리기를 허용, 방장을 제외한 다른플레이어들이 모두 레디 상태여야 함
+        if (RoomManager.Instance.IsMaster(connectDedicatedServerPacket.RoomId, clientSession) && RoomManager.Instance.IsAllReady(connectDedicatedServerPacket.RoomId))
         {
             //TODO : 데디서버 프로세스 생성. (지금은 임의로 켜놓은 서버로 테스트)
             SC_ConnectDedicatedServer sendPacket =DedicatedServerManager.Instance.CreateDedicatedServer();

@@ -11,6 +11,7 @@ public class GameRoom
     public string Password { get; set; }
 
     public List<Player> _players = new List<Player>(); //방에 있는 플레이어 리스트
+    public List<int> _readyPlayerId = new List<int>(); //레디 완료한 플레이어id 리스트
 
     public DedicatedServerInfo _dedicatedServerInfo;  //해당 방에 연결된 데디케이티드 서버 정보
     
@@ -58,9 +59,11 @@ public class GameRoom
                 if(p!=newPlayer)
                     p.Session.Send(informNewFaceInRoomPacket);
             }
+            
+            //준비 관련 정보 패킷 본인(방금 들어온)한테 보냄
+            newPlayer.Session.Send(MakeReadyRoomPacket());
         }
     }
-
     public void LeaveRoom(ClientSession session)
     {
         if (session == null)
@@ -88,8 +91,12 @@ public class GameRoom
             }
 
             //본인 포함 방 인원 모두한테 나갔다는 정보 전송
-            foreach (Player p in _players)
-                p.Session.Send(leavePacket);
+            BroadCast(leavePacket);
+            
+            //레디 목록에 있었다면 제거
+            ProcessReady(leavePacket.PlayerId, false);
+            //본인 포함 방 인원 모두한테 레디 정보 패킷을 전송
+            BroadCast(MakeReadyRoomPacket());
 
             _players.Remove(player);
             player.Room = null;
@@ -106,5 +113,50 @@ public class GameRoom
             
         }
     }
+    public void ProcessReady(int playerId, bool isReady)
+    {
+        lock (_lock)
+        {
+            if (isReady)
+            {
+                if (!_readyPlayerId.Contains(playerId))
+                    _readyPlayerId.Add(playerId);
+            }
+            else
+            {
+                if (_readyPlayerId.Contains(playerId))
+                    _readyPlayerId.Remove(playerId);
+            }
+            
+            //본인 포함 방 인원 모두한테 레디 정보 패킷을 전송
+            BroadCast(MakeReadyRoomPacket());
+        }
+    }
     
+    /// <summary>
+    /// SC_ReadyRoom 패킷을 현재 정보를 바탕으로 만드는 함수
+    /// </summary>
+    /// <returns>완성된 패킷</returns>
+    public SC_ReadyRoom MakeReadyRoomPacket()
+    {
+        SC_ReadyRoom readyRoomPacket = new SC_ReadyRoom();
+        readyRoomPacket.RoomId = Info.RoomId;
+        
+        //_players에 있는 playerid들을 map의 key로하고, 해당 key값이 _readyPlayerId에 존재하면 valu로 true, 아니면 false를 넣어서 만들음
+        foreach (Player player in _players)
+        {
+            readyRoomPacket.ReadyPlayerInfo.Add(player.Info.PlayerId, _readyPlayerId.Contains(player.Info.PlayerId));
+        }
+
+        return readyRoomPacket;
+    }
+    
+    public bool IsAllReady()
+    {
+        if (_players.Count <= 1) //1인으로는 시작 못하게 방지
+            return false;
+
+        //방장 빼고 나머지는 다 isReady가 true인지 확인
+        return _players.Count(x => x.Info.PlayerId != Info.RoomMasterPlayerId && _readyPlayerId.Contains(x.Info.PlayerId)) == Info.CurrentCount - 1;
+    }
 }
