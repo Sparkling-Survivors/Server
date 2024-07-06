@@ -231,6 +231,28 @@ message DSC_Move{
   google.protobuf.Timestamp timestamp = 5; //서버시간으로 동기화된 타임스탬프 
 }
 
+message DSC_DayTimerStart{
+  int32 daySeconds = 1; //낮 시간(초)
+}
+
+message DSC_DayTimerSync{
+  float currentServerTimer = 1; //서버의 현재 타이머 시간
+}
+
+message DSC_DayTimerEnd{
+}
+
+message DSC_NightTimerStart{
+  int32 nightSeconds = 1; //밤 시간(초)
+}
+
+message DSC_NightTimerSync{
+  float currentServerTimer = 1; //서버의 현재 타이머 시간
+}
+
+message DSC_NightTimerEnd{
+}
+
 message DSC_NewChestsInfo{
   map<int32, ChestInfo> chestsInfo = 1; //상자들의 정보
 }
