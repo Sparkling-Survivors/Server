@@ -83,6 +83,9 @@ public class GameRoom
             {
                 Info.RoomMasterPlayerId = _players.Find(x => x.Info.PlayerId != Info.RoomMasterPlayerId).Info.PlayerId;
                 leavePacket.RoomMasterPlayerId = Info.RoomMasterPlayerId;
+                
+                //방장 넘겨받은 사람이 레디 목록에 있었다면 제거
+                ProcessReady(Info.RoomMasterPlayerId, false);
             }
             //방장이 아닌 사람이 나갔을때는 방장이 바뀌지 않음 or 1명남았는데 그 사람이 나갔을때 
             else
