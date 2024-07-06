@@ -163,6 +163,4 @@ public class GameRoom
         //방장 빼고 나머지는 다 isReady가 true인지 확인
         return _players.Count(x => x.Info.PlayerId != Info.RoomMasterPlayerId && _readyPlayerId.Contains(x.Info.PlayerId)) == Info.CurrentCount - 1;
     }
-    
-    public void 
 }
