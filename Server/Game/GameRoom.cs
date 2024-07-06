@@ -94,9 +94,11 @@ public class GameRoom
             BroadCast(leavePacket);
             
             //나간 사람이 레디 목록에 있었다면 제거
-            ProcessReady(leavePacket.PlayerId, false);
+            if (_readyPlayerId.Contains(player.Info.PlayerId))
+                _readyPlayerId.Remove(player.Info.PlayerId);
             //방장이 레디 목록에 있었다면 제거
-            ProcessReady(Info.RoomMasterPlayerId, false);
+            if (Info.RoomMasterPlayerId == player.Info.PlayerId)
+                _readyPlayerId.Remove(player.Info.PlayerId);
             //본인 포함 방 인원 모두한테 레디 정보 패킷을 전송
             BroadCast(MakeReadyRoomPacket());
 
@@ -161,4 +163,6 @@ public class GameRoom
         //방장 빼고 나머지는 다 isReady가 true인지 확인
         return _players.Count(x => x.Info.PlayerId != Info.RoomMasterPlayerId && _readyPlayerId.Contains(x.Info.PlayerId)) == Info.CurrentCount - 1;
     }
+    
+    public void 
 }
