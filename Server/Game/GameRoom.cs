@@ -97,7 +97,7 @@ public class GameRoom
             if (_readyPlayerId.Contains(player.Info.PlayerId))
                 _readyPlayerId.Remove(player.Info.PlayerId);
             //방장이 레디 목록에 있었다면 제거
-            if (Info.RoomMasterPlayerId == player.Info.PlayerId)
+            if (_readyPlayerId.Contains(Info.RoomMasterPlayerId))
                 _readyPlayerId.Remove(player.Info.PlayerId);
             //본인 포함 방 인원 모두한테 레디 정보 패킷을 전송
             BroadCast(MakeReadyRoomPacket());
