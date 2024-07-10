@@ -240,6 +240,7 @@ message DSC_DayTimerSync{
 }
 
 message DSC_DayTimerEnd{
+  int32 bomberPlayerId = 1; //폭탄을 가진 플레이어의 id
 }
 
 message DSC_NightTimerStart{
