@@ -245,6 +245,9 @@ message DSC_DayTimerEnd{
 
 message DSC_NightTimerStart{
   int32 nightSeconds = 1; //밤 시간(초)
+  float gaugeMax = 2; //게이지 최대값
+  float _survivorGaugeDecreasePerSecond = 3; //생존자 초당 게이지 감소량
+  float _killerGaugeDecreasePerSecond = 4; //킬러 초당 게이지 감소량
 }
 
 message DSC_NightTimerSync{
