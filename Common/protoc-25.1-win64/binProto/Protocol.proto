@@ -51,6 +51,10 @@ enum MsgId {
   
   CDS_REQUEST_TIMESTAMP = 34; //클라가 데디서버에게 타임스탬프 요청
   DSC_RESPONSE_TIMESTAMP = 35; //데디서버가 클라에게 타임스탬프 응답
+  
+  DSC_Gauge_Sync = 36; //데디서버가 클라에게 게이지 동기화 정보 전달
+  
+  DSC_Player_Death = 37; //플레이어가 죽었음을 알림
 }
 
 enum ReasonRejected{
@@ -58,6 +62,11 @@ enum ReasonRejected{
   CurrentlyPlaying = 1;
   RoomIsFull = 2;
   WrongPassword = 3;
+}
+
+enum DeathCause{
+  TimeOver = 0;
+  GaugeOver = 1;
 }
 
 message PlayerInfo {
@@ -255,6 +264,9 @@ message DSC_NightTimerSync{
 }
 
 message DSC_NightTimerEnd{
+  DeathCause deathCause = 1; //죽은 이유
+  int32 deathPlayerId = 2; //죽은 플레이어의 id
+  int32 killerPlayerId = 3; //마지막 킬러 플레이어의 id
 }
 
 message DSC_NewChestsInfo{
@@ -276,5 +288,15 @@ message CDS_RequestTimestamp{
 
 message DSC_ResponseTimestamp{
   google.protobuf.Timestamp timestamp = 1;
+}
+
+message DSC_GaugeSync{
+  map<int32, float> playerGauges = 1; //플레이어id, 게이지
+  map<int32, float> playerGaugeDecreasePerSecond = 2; //플레이어id, 초당 게이지 감소량
+}
+
+message DSC_PlayerDeath{
+  int32 playerId = 1; //죽은 플레이어의 id
+  DeathCause deathCause = 2; //죽은 이유
 }
 

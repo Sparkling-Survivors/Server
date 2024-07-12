@@ -67,7 +67,11 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.DscChestOpenSuccess, MakePacket<DSC_ChestOpenSuccess>);
 		_handler.Add((ushort)MsgId.DscChestOpenSuccess, PacketHandler.DSC_ChestOpenSuccessHandler);		
 		_onRecv.Add((ushort)MsgId.DscResponseTimestamp, MakePacket<DSC_ResponseTimestamp>);
-		_handler.Add((ushort)MsgId.DscResponseTimestamp, PacketHandler.DSC_ResponseTimestampHandler);
+		_handler.Add((ushort)MsgId.DscResponseTimestamp, PacketHandler.DSC_ResponseTimestampHandler);		
+		_onRecv.Add((ushort)MsgId.DscGaugeSync, MakePacket<DSC_GaugeSync>);
+		_handler.Add((ushort)MsgId.DscGaugeSync, PacketHandler.DSC_GaugeSyncHandler);		
+		_onRecv.Add((ushort)MsgId.DscPlayerDeath, MakePacket<DSC_PlayerDeath>);
+		_handler.Add((ushort)MsgId.DscPlayerDeath, PacketHandler.DSC_PlayerDeathHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
