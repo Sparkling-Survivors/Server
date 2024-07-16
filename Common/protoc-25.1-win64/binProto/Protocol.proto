@@ -56,13 +56,14 @@ enum MsgId {
   
   DSC_Player_Death = 37; //플레이어가 죽었음을 알림
   
-  DSC_NEW_CLEANSE_INFO = 38; //데디서버가 클라에게 새로운 정화관련 정보 전달
+  DSC_NEW_CLEANSES_INFO = 38; //데디서버가 클라에게 새로운 정화관련 정보 전달
   CDS_REQUEST_CLEANSE_PERMISSION = 39; //클라가 데디서버에게 정화 시도 소유권 요청
-  DSC_GIVE_ClEANSE_PERMISSION = 40; //데디서버가 클라들에게 정화 소유권 허가 여부 전달
+  DSC_GIVE_CLEANSE_PERMISSION = 40; //데디서버가 클라들에게 정화 소유권 허가 여부 전달
   CDS_CLEANSE_QUIT = 41; //클라가 데디서버에게 정화 포기 전달
   DSC_CLEANSE_QUIT = 42; //데디서버가 클라들에게 정화 포기 전달
   CDS_CLEANSE_SUCCESS = 43; //클라가 데디서버에게 정화 성공 전달
   DSC_CLEANSE_SUCCESS = 44; //데디서버가 클라들에게 정화 성공 전달
+  DSC_CLEANSE_COOLTIME_FINISH = 45; //데디서버가 클라들에게 정화 쿨타임 종료 전달
 }
 
 enum ReasonRejected{
@@ -114,6 +115,14 @@ message ChestInfo{
   int32 chestId = 1;
   int32 chestLevel = 2;
   int32 chestPoint = 3;
+}
+
+message CleanseInfo{
+  int32 cleanseId = 1; //정화 아이디
+  TransformInfo cleanseTransform = 2; //정화 트랜스폼 정보
+  float cleansePoint = 3; //정화로 올라갈 게이지 정도
+  float cleanseDurationSeconds = 4;//정화하는데 걸리는 시간
+  float cleanseCoolTimeSeconds = 5; //정화 재사용 쿨타임
 }
 
 message Velocity{
@@ -307,11 +316,8 @@ message DSC_PlayerDeath{
   DeathCause deathCause = 2; //죽은 이유
 }
 
-message DSC_NewCleanseInfo{
-  int32 cleanseId = 1; //정화 아이디
-  float cleansePoint = 2; //정화로 올라갈 게이지 정도
-  float cleanseDurationSeconds = 3;//정화하는데 걸리는 시간
-  float cleanseCoolTimeSeconds = 4; //정화 재사용 쿨타임
+message DSC_NewCleansesInfo{
+  repeated CleanseInfo cleanses = 1; //정화 정보
 }
 
 message CDS_RequestCleansePermission{
@@ -343,4 +349,10 @@ message DSC_CleanseSuccess{
   int32 playerId = 1;
   int32 cleanseId = 2;
 }
+
+message DSC_CleanseCooltimeFinish{
+  int32 cleanseId = 1;
+}
+
+
 
