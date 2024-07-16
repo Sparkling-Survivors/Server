@@ -59,8 +59,10 @@ enum MsgId {
   DSC_NEW_CLEANSE_INFO = 38; //데디서버가 클라에게 새로운 정화관련 정보 전달
   CDS_REQUEST_CLEANSE_PERMISSION = 39; //클라가 데디서버에게 정화 시도 소유권 요청
   DSC_GIVE_ClEANSE_PERMISSION = 40; //데디서버가 클라들에게 정화 소유권 허가 여부 전달
-  CDS_CLEANSE_SUCCESS = 41; //클라가 데디서버에게 정화 성공 전달
-  DSC_CLEANSE_SUCCESS = 42; //데디서버가 클라들에게 정화 성공 전달
+  CDS_CLEANSE_QUIT = 41; //클라가 데디서버에게 정화 포기 전달
+  DSC_CLEANSE_QUIT = 42; //데디서버가 클라들에게 정화 포기 전달
+  CDS_CLEANSE_SUCCESS = 43; //클라가 데디서버에게 정화 성공 전달
+  DSC_CLEANSE_SUCCESS = 44; //데디서버가 클라들에게 정화 성공 전달
 }
 
 enum ReasonRejected{
@@ -303,5 +305,42 @@ message DSC_GaugeSync{
 message DSC_PlayerDeath{
   int32 playerId = 1; //죽은 플레이어의 id
   DeathCause deathCause = 2; //죽은 이유
+}
+
+message DSC_NewCleanseInfo{
+  int32 cleanseId = 1; //정화 아이디
+  float cleansePoint = 2; //정화로 올라갈 게이지 정도
+  float cleanseDurationSeconds = 3;//정화하는데 걸리는 시간
+  float cleanseCoolTimeSeconds = 4; //정화 재사용 쿨타임
+}
+
+message CDS_RequestCleansePermission{
+  int32 myDediplayerId = 1;
+  int32 cleanseId = 2;
+}
+
+message DSC_GiveCleansePermission{
+  int32 playerId = 1;
+  int32 cleanseId = 2;
+}
+
+message CDS_CleanseQuit{
+  int32 myDediplayerId = 1;
+  int32 cleanseId = 2;
+}
+
+message DSC_CleanseQuit{
+  int32 playerId = 1;
+  int32 cleanseId = 2;
+}
+
+message CDS_CleanseSuccess{
+  int32 myDediplayerId = 1;
+  int32 cleanseId = 2;
+}
+
+message DSC_CleanseSuccess{
+  int32 playerId = 1;
+  int32 cleanseId = 2;
 }
 

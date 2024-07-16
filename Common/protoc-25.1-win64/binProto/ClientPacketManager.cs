@@ -71,7 +71,15 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.DscGaugeSync, MakePacket<DSC_GaugeSync>);
 		_handler.Add((ushort)MsgId.DscGaugeSync, PacketHandler.DSC_GaugeSyncHandler);		
 		_onRecv.Add((ushort)MsgId.DscPlayerDeath, MakePacket<DSC_PlayerDeath>);
-		_handler.Add((ushort)MsgId.DscPlayerDeath, PacketHandler.DSC_PlayerDeathHandler);
+		_handler.Add((ushort)MsgId.DscPlayerDeath, PacketHandler.DSC_PlayerDeathHandler);		
+		_onRecv.Add((ushort)MsgId.DscNewCleanseInfo, MakePacket<DSC_NewCleanseInfo>);
+		_handler.Add((ushort)MsgId.DscNewCleanseInfo, PacketHandler.DSC_NewCleanseInfoHandler);		
+		_onRecv.Add((ushort)MsgId.DscGiveCleansePermission, MakePacket<DSC_GiveCleansePermission>);
+		_handler.Add((ushort)MsgId.DscGiveCleansePermission, PacketHandler.DSC_GiveCleansePermissionHandler);		
+		_onRecv.Add((ushort)MsgId.DscCleanseQuit, MakePacket<DSC_CleanseQuit>);
+		_handler.Add((ushort)MsgId.DscCleanseQuit, PacketHandler.DSC_CleanseQuitHandler);		
+		_onRecv.Add((ushort)MsgId.DscCleanseSuccess, MakePacket<DSC_CleanseSuccess>);
+		_handler.Add((ushort)MsgId.DscCleanseSuccess, PacketHandler.DSC_CleanseSuccessHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
