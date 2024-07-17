@@ -54,16 +54,16 @@ enum MsgId {
   
   DSC_Gauge_Sync = 36; //데디서버가 클라에게 게이지 동기화 정보 전달
   
-  DSC_Player_Death = 37; //플레이어가 죽었음을 알림
+  //DSC_Player_Death = 37; //플레이어가 죽었음을 알림 (나이트 타이머 엔드에서 이 역할 하는중이라 지움)
   
-  DSC_NEW_CLEANSES_INFO = 38; //데디서버가 클라에게 새로운 정화관련 정보 전달
-  CDS_REQUEST_CLEANSE_PERMISSION = 39; //클라가 데디서버에게 정화 시도 소유권 요청
-  DSC_GIVE_CLEANSE_PERMISSION = 40; //데디서버가 클라들에게 정화 소유권 허가 여부 전달
-  CDS_CLEANSE_QUIT = 41; //클라가 데디서버에게 정화 포기 전달
-  DSC_CLEANSE_QUIT = 42; //데디서버가 클라들에게 정화 포기 전달
-  CDS_CLEANSE_SUCCESS = 43; //클라가 데디서버에게 정화 성공 전달
-  DSC_CLEANSE_SUCCESS = 44; //데디서버가 클라들에게 정화 성공 전달
-  DSC_CLEANSE_COOLTIME_FINISH = 45; //데디서버가 클라들에게 정화 쿨타임 종료 전달
+  DSC_NEW_CLEANSES_INFO = 37; //데디서버가 클라에게 새로운 정화관련 정보 전달
+  CDS_REQUEST_CLEANSE_PERMISSION = 38; //클라가 데디서버에게 정화 시도 소유권 요청
+  DSC_GIVE_CLEANSE_PERMISSION = 39; //데디서버가 클라들에게 정화 소유권 허가 여부 전달
+  CDS_CLEANSE_QUIT = 40; //클라가 데디서버에게 정화 포기 전달
+  DSC_CLEANSE_QUIT = 41; //데디서버가 클라들에게 정화 포기 전달
+  CDS_CLEANSE_SUCCESS = 42; //클라가 데디서버에게 정화 성공 전달
+  DSC_CLEANSE_SUCCESS = 43; //데디서버가 클라들에게 정화 성공 전달
+  DSC_CLEANSE_COOLTIME_FINISH = 44; //데디서버가 클라들에게 정화 쿨타임 종료 전달
 }
 
 enum ReasonRejected{
@@ -297,6 +297,8 @@ message CDS_TryChestOpen{
 message DSC_ChestOpenSuccess{
   int32 chestId = 1; //열린 상자의 id
   int32 playerId = 2; //상자를 열은 플레이어의 id
+  int32 getPoint = 3; //얻은 포인트
+  int32 totalPoint = 4; //총 포인트
 }
 
 message CDS_RequestTimestamp{
@@ -311,10 +313,10 @@ message DSC_GaugeSync{
   map<int32, float> playerGaugeDecreasePerSecond = 2; //플레이어id, 초당 게이지 감소량
 }
 
-message DSC_PlayerDeath{
+/*message DSC_PlayerDeath{
   int32 playerId = 1; //죽은 플레이어의 id
   DeathCause deathCause = 2; //죽은 이유
-}
+}*/
 
 message DSC_NewCleansesInfo{
   repeated CleanseInfo cleanses = 1; //정화 정보
@@ -348,6 +350,7 @@ message CDS_CleanseSuccess{
 message DSC_CleanseSuccess{
   int32 playerId = 1;
   int32 cleanseId = 2;
+  float _gauge = 3; //성공한 후 게이지
 }
 
 message DSC_CleanseCooltimeFinish{

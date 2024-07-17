@@ -70,8 +70,6 @@ class PacketManager
 		_handler.Add((ushort)MsgId.DscResponseTimestamp, PacketHandler.DSC_ResponseTimestampHandler);		
 		_onRecv.Add((ushort)MsgId.DscGaugeSync, MakePacket<DSC_GaugeSync>);
 		_handler.Add((ushort)MsgId.DscGaugeSync, PacketHandler.DSC_GaugeSyncHandler);		
-		_onRecv.Add((ushort)MsgId.DscPlayerDeath, MakePacket<DSC_PlayerDeath>);
-		_handler.Add((ushort)MsgId.DscPlayerDeath, PacketHandler.DSC_PlayerDeathHandler);		
 		_onRecv.Add((ushort)MsgId.DscNewCleansesInfo, MakePacket<DSC_NewCleansesInfo>);
 		_handler.Add((ushort)MsgId.DscNewCleansesInfo, PacketHandler.DSC_NewCleansesInfoHandler);		
 		_onRecv.Add((ushort)MsgId.DscGiveCleansePermission, MakePacket<DSC_GiveCleansePermission>);
