@@ -239,6 +239,8 @@ message DSC_InformLeaveDedicatedServer{
 }
 
 message DSC_StartGame{
+  string items = 1; //json 형식 아이템 정보
+  string killers = 2; //json 형식 킬러 정보
 }
 
 message CDS_Move{
