@@ -269,6 +269,7 @@ message DSC_DayTimerSync{
 
 message DSC_DayTimerEnd{
   int32 killerPlayerId = 1; //킬러 플레이어의 id
+  int32 killerType = 2; //어떤 종류의 킬러인지를 나타내는 id
 }
 
 message DSC_NightTimerStart{
