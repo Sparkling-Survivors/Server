@@ -6,7 +6,7 @@ namespace Server.Game;
 
 public class GameRoom
 {
-    object _lock = new object();
+    //object _lock = new object(); 패킷큐 사용으로 인해 불필요
     public RoomInfo Info { get; set; } = new RoomInfo();
     public string Password { get; set; }
 
@@ -30,8 +30,8 @@ public class GameRoom
         SC_AllowEnterRoom allowEnterPacket = new SC_AllowEnterRoom();
         SC_InformNewFaceInRoom informNewFaceInRoomPacket = new SC_InformNewFaceInRoom();
 
-        lock (_lock)    
-        {
+        //lock (_lock)    
+        //{
             Player newPlayer = new Player();
             newPlayer.Info.PlayerId = session.SessionId;
             newPlayer.Info.Name = name;
@@ -62,15 +62,15 @@ public class GameRoom
             
             //준비 관련 정보 패킷 본인(방금 들어온)한테 보냄
             newPlayer.Session.Send(MakeReadyRoomPacket());
-        }
+        //}
     }
     public void LeaveRoom(ClientSession session)
     {
         if (session == null)
             return;
 
-        lock (_lock)
-        {
+        //lock (_lock)
+        //{
             Player player = _players.Find(x => x.Session == session);
             if (player == null)
                 return;
@@ -116,12 +116,12 @@ public class GameRoom
             if (_players.Count <= 0)
                 RoomManager.Instance.Remove(Info.RoomId);
             
-        }
+        //}
     }
     public void ProcessReady(int playerId, bool isReady)
     {
-        lock (_lock)
-        {
+        //lock (_lock)
+        //{
             if (isReady)
             {
                 if (!_readyPlayerId.Contains(playerId))
@@ -135,7 +135,7 @@ public class GameRoom
             
             //본인 포함 방 인원 모두한테 레디 정보 패킷을 전송
             BroadCast(MakeReadyRoomPacket());
-        }
+        //}
     }
     
     /// <summary>

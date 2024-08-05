@@ -8,7 +8,7 @@ public class RoomManager
 {
     public static RoomManager Instance { get; } = new RoomManager();
 
-    object _lock = new object();
+    //object _lock = new object(); 패킷큐 사용으로 인해 불필요
     public Dictionary<int, GameRoom> _rooms = new Dictionary<int, GameRoom>();
     int _roomId = 1;
     int _maxPerRoomCount = 8; //한 방당 최대 인원수
@@ -17,8 +17,8 @@ public class RoomManager
     {
         GameRoom gameRoom = new GameRoom();
 
-        lock (_lock)
-        {
+        //lock (_lock)
+        //{
             gameRoom.Info.RoomId = _roomId;
             gameRoom.Info.Title = title;
             gameRoom.Info.CurrentCount = 0;
@@ -31,7 +31,7 @@ public class RoomManager
             gameRoom.Info.RoomMasterPlayerId = clientSessionSessionId; //최초 방장은 방 생성한 플레이어의 sessionID임.
             _rooms.Add(_roomId, gameRoom);
             _roomId++;
-        }
+        //}
 
         return gameRoom;
     }
@@ -41,8 +41,8 @@ public class RoomManager
         GameRoom room = null;
         SC_AllowEnterRoom allowEnterPacket = new SC_AllowEnterRoom(){CanEnter = false};
 
-        lock (_lock)    
-        {
+        //lock (_lock)    
+        //{
             if (!_rooms.ContainsKey(roomId)) //존재하지 않는 방이면 입장불가
             {
                 allowEnterPacket.ReasonRejected = ReasonRejected.RoomNotExist;
@@ -72,7 +72,7 @@ public class RoomManager
                     room.EnterRoom(session, name);
                 }
             }
-        }
+        //}
     }
 
     public void LeaveRoom(int roomId, ClientSession session)
@@ -80,8 +80,8 @@ public class RoomManager
         SC_LeaveRoom sendPacket = new SC_LeaveRoom();
         sendPacket.PlayerId = session.SessionId; //현재 플레이어id는 세션아이디와 같음
         
-        lock (_lock)
-        {
+        //lock (_lock)
+        //{
             if (!_rooms.ContainsKey(roomId)) //존재하지 않는 방이면 퇴장 가능처리
             {
                 session.Send(sendPacket);
@@ -91,26 +91,26 @@ public class RoomManager
                 GameRoom room = _rooms[roomId];
                 room.LeaveRoom(session);
             }
-        }
+        //}
     }
 
     public bool Remove(int roomId)
     {
-        lock (_lock)
-        {
+        //lock (_lock)
+        //{
             return _rooms.Remove(roomId);
-        }
+        //}
     }
     
     public void SetRoomPlaying(int roomId)
     {
-        lock (_lock)
-        {
+        //lock (_lock)
+        //{
             if (_rooms.ContainsKey(roomId))
             {
                 _rooms[roomId].Info.IsPlaying = true;
             }
-        }
+        //}
     }
 
     public GameRoom Find(int roomId)

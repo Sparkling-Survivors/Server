@@ -2,6 +2,7 @@
 using ServerCore;
 using System.Net;
 using System.Text;
+using Google.Protobuf;
 using Server.Game;
 
 namespace Server;
@@ -31,6 +32,16 @@ class Program
         JobTimer.Instance.Push(CheckSessionNum); //세션 갯수 1초마다 확인
         while (true)
         {
+            //패킷 처리
+            List<PacketMessage> list = PacketQueue.Instance.PopAll();
+            foreach (PacketMessage packet in list)
+            {
+                Action<PacketSession, IMessage> handler = PacketManager.Instance.GetPacketHandler(packet.Id);
+                if (handler != null)
+                    handler.Invoke(packet.Session, packet.Message);
+            }
+            
+            
             JobTimer.Instance.Flush();
             Thread.Sleep(10);
         }

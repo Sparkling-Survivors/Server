@@ -37,6 +37,14 @@ public class ClientSession : PacketSession
     {
         Console.WriteLine($"OnConnected : {endPoint}");
         
+        if(PacketManager.Instance.CustomHandler == null)
+        {
+            PacketManager.Instance.CustomHandler = (s, m, i) =>
+            {
+                PacketQueue.Instance.Push(s, i, m);
+            };
+        }
+        
         PingPong = new PingPong(this);
         PingPong.SendPing();
     }
