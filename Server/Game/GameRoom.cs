@@ -26,6 +26,10 @@ public class GameRoom
     {
         if (session == null)
             return;
+        
+        //해당 세션이 이미 다른방에 있는 경우, 그 방에서 먼저 나가게 함
+        if (session.MyPlayer != null)
+            session.MyPlayer.Room.LeaveRoom(session);
 
         SC_AllowEnterRoom allowEnterPacket = new SC_AllowEnterRoom();
         SC_InformNewFaceInRoom informNewFaceInRoomPacket = new SC_InformNewFaceInRoom();
