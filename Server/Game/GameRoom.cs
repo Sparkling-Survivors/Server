@@ -52,6 +52,7 @@ public class GameRoom
             allowEnterPacket.MyPlayerId = newPlayer.Info.PlayerId;
             allowEnterPacket.Room = Info;
             allowEnterPacket.Players.AddRange(_players.ConvertAll(player => player.Info));
+            allowEnterPacket.Password = Password;
             newPlayer.Session.Send(allowEnterPacket);
 
             //다른 사람들한테 새로운 유저 입장 정보 전송

@@ -162,6 +162,7 @@ message SC_AllowEnterRoom {
   RoomInfo room = 3;
   repeated PlayerInfo players = 4;
   ReasonRejected reasonRejected = 5;
+  string password = 6;
 }
 
 
