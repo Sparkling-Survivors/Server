@@ -19,7 +19,7 @@ class Program
 
     static void Main(string[] args)
     {
-        IPAddress ipAddr = IPAddress.Any;
+        /*IPAddress ipAddr = IPAddress.Any;
         IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
 
         _listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); });
@@ -39,7 +39,7 @@ class Program
             
             
             JobTimer.Instance.Flush();
-            Thread.Sleep(10);
+            Thread.Sleep(10);*/
         }
     }
 }
