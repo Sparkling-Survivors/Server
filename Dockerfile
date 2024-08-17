@@ -12,4 +12,4 @@ EXPOSE 7777
 
 # Set the entry point for the container to run the .exe file
 CMD ["dotnet", "Server.dll"]      
-  
+   
