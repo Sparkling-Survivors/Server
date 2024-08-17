@@ -19,14 +19,14 @@ class Program
 
     static void Main(string[] args)
     {
-        /*IPAddress ipAddr = IPAddress.Any;
+        IPAddress ipAddr = IPAddress.Any;
         IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
 
         _listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); });
         Console.WriteLine("Listening...");
         
         JobTimer.Instance.Push(CheckSessionNum); //세션 갯수 1초마다 확인
-        while (true)
+        /*while (true)
         {
             //패킷 처리
             List<PacketMessage> list = PacketQueue.Instance.PopAll();
@@ -39,7 +39,7 @@ class Program
             
             
             JobTimer.Instance.Flush();
-            Thread.Sleep(10);*/ 
-        }
+            Thread.Sleep(10);
+        }*/
     }
 }
