@@ -26,7 +26,7 @@ class Program
         Console.WriteLine("Listening...");
         
         JobTimer.Instance.Push(CheckSessionNum); //세션 갯수 1초마다 확인
-        while (true)
+        /*while (true)
         {
             //패킷 처리
             List<PacketMessage> list = PacketQueue.Instance.PopAll();
@@ -40,6 +40,6 @@ class Program
             
             JobTimer.Instance.Flush();
             Thread.Sleep(10);
-        }
+        }*/
     }
 }
