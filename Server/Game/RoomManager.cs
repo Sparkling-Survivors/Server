@@ -13,6 +13,8 @@ public class RoomManager
     int _roomId = 1;
     int _maxPerRoomCount = 8; //한 방당 최대 인원수
 
+    static int _roomMakeRemainTime = 2000; //방 만들고 n ms(밀리초) 이내에 방장이 들어오지 않으면 방 삭제
+
     public GameRoom MakeRoom(string title, bool isPrivate = false, string password = "", int clientSessionSessionId = -1)
     {
         GameRoom gameRoom = new GameRoom();
@@ -27,8 +29,18 @@ public class RoomManager
         gameRoom._dedicatedServerInfo._ip = null;
         gameRoom._dedicatedServerInfo._port = -1;
         gameRoom.Info.RoomMasterPlayerId = clientSessionSessionId; //최초 방장은 방 생성한 플레이어의 sessionID임.
+        gameRoom._isRoomMakerJoined = false; //방장들어오면 true로 바뀜. n초 이내에 방장이 들어오지 않으면 방 삭제용
         _rooms.Add(_roomId, gameRoom);
         _roomId++;
+
+        //방장이 n밀리초 이내에 들어오지 않으면 방 삭제처리
+        JobTimer.Instance.Push(() =>
+        {
+            if (!gameRoom._isRoomMakerJoined)
+            {
+                Remove(gameRoom.Info.RoomId);
+            }
+        },_roomMakeRemainTime);
 
         return gameRoom;
     }

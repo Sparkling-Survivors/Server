@@ -14,7 +14,9 @@ public class GameRoom
     public List<int> _readyPlayerId = new List<int>(); //레디 완료한 플레이어id 리스트
 
     public DedicatedServerInfo _dedicatedServerInfo;  //해당 방에 연결된 데디케이티드 서버 정보
-    
+
+    public bool _isRoomMakerJoined = false; //방장이 들어왔는지 여부(n밀리초 이내에 방장이 들어오지 않으면 방 삭제용)
+
     public void BroadCast(IMessage packet)
     {
         foreach (Player player in _players)
@@ -30,6 +32,10 @@ public class GameRoom
         //해당 세션이 이미 다른방에 있는 경우, 그 방에서 먼저 나가게 함
         if (session.MyPlayer != null)
             session.MyPlayer.Room.LeaveRoom(session);
+
+        //방을 만든 사람이 방에 들어오면 방장이 들어온 것으로 처리(방 삭제 예약을 취소)
+        if (Info.RoomMasterPlayerId == session.SessionId)
+            _isRoomMakerJoined = true;
 
         SC_AllowEnterRoom allowEnterPacket = new SC_AllowEnterRoom();
         SC_InformNewFaceInRoom informNewFaceInRoomPacket = new SC_InformNewFaceInRoom();
