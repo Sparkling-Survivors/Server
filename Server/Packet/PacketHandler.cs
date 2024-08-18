@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
+using Microsoft.VisualBasic.CompilerServices;
 using Server;
 using Server.Game;
 using ServerCore;
@@ -10,6 +11,8 @@ public class PacketHandler
     //서버가 들고있는 방 리스트를 클라이언트에게 보냄
     public static void CS_RoomListHandler(PacketSession session, IMessage packet)
     {
+        Console.WriteLine("CS_RoomListHandler");
+
         CS_RoomList roomListPacket = packet as CS_RoomList;
         ClientSession clientSession = session as ClientSession;
         
@@ -26,6 +29,8 @@ public class PacketHandler
     //클라이언트가 요청한 정보대로 방을 만들어서, 그 정보를 클라이언트에게 보냄
     public static void CS_MakeRoomHandler(PacketSession session, IMessage packet)
     {
+        Console.WriteLine("CS_MakeRoomHandler");
+
         CS_MakeRoom makeRoomPacket = packet as CS_MakeRoom;
         ClientSession clientSession = session as ClientSession;
         
@@ -40,6 +45,8 @@ public class PacketHandler
     //클라이언트가 특정 방 입장을 요청하면, 입장가능 여부를 판단해서, 입장가능하면 그 방에 입장시키고, 방 정보를 클라이언트에게 보냄
     public static void CS_EnterRoomHandler(PacketSession session, IMessage packet)
     {
+        Console.WriteLine("CS_EnterRoomHandler");
+
         CS_EnterRoom enterRoomPacket = packet as CS_EnterRoom;
         ClientSession clientSession = session as ClientSession;
         
@@ -48,6 +55,8 @@ public class PacketHandler
     
     public static void CS_LeaveRoomHandler(PacketSession session, IMessage packet)
     {
+        Console.WriteLine("CS_LeaveRoomHandler");
+
         CS_LeaveRoom leaveRoomPacket = packet as CS_LeaveRoom;
         ClientSession clientSession = session as ClientSession;
         
@@ -57,6 +66,8 @@ public class PacketHandler
     //클라가 레디완료를 눌렀거나 레디취소를 눌렀을때 처리
     public static void CS_ReadyRoomHandler(PacketSession session, IMessage packet)
     {
+        Console.WriteLine("CS_ReadyRoomHandler");
+
         CS_ReadyRoom readyRoomPacket = packet as CS_ReadyRoom;
         ClientSession clientSession = session as ClientSession;
         
@@ -82,6 +93,8 @@ public class PacketHandler
     //***********   여기서 새로운 데디서버 프로세스를 생성하고 해당 정보를 넘겨주어야함 !! ******************
     public static void CS_ConnectDedicatedServerHandler(PacketSession session, IMessage packet)
     {
+        Console.WriteLine("CS_ConnectDedicatedServerHandler");
+
         CS_ConnectDedicatedServer connectDedicatedServerPacket = packet as CS_ConnectDedicatedServer;
         ClientSession clientSession = session as ClientSession; //방장 클라이언트가 될 예정
         
