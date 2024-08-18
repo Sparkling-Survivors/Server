@@ -26,7 +26,7 @@ public class GameRoom
     {
         if (session == null)
             return;
-        
+
         //해당 세션이 이미 다른방에 있는 경우, 그 방에서 먼저 나가게 함
         if (session.MyPlayer != null)
             session.MyPlayer.Room.LeaveRoom(session);
@@ -34,115 +34,107 @@ public class GameRoom
         SC_AllowEnterRoom allowEnterPacket = new SC_AllowEnterRoom();
         SC_InformNewFaceInRoom informNewFaceInRoomPacket = new SC_InformNewFaceInRoom();
 
-        //lock (_lock)    
-        //{
-            Player newPlayer = new Player();
-            newPlayer.Info.PlayerId = session.SessionId;
-            newPlayer.Info.Name = name;
-            newPlayer.Room = this;
-            newPlayer.Session = session;
-            session.MyPlayer= newPlayer; //세션에 플레이어 정보 저장
-            
-            //현재 방의 인원수 업데이트
-            _players.Add(newPlayer);
-            Info.CurrentCount = _players.Count;
-               
-            //본인한테 입장 허용 패킷 보냄
-            allowEnterPacket.CanEnter = true;
-            allowEnterPacket.MyPlayerId = newPlayer.Info.PlayerId;
-            allowEnterPacket.Room = Info;
-            allowEnterPacket.Players.AddRange(_players.ConvertAll(player => player.Info));
-            allowEnterPacket.Password = Password;
-            newPlayer.Session.Send(allowEnterPacket);
+        Player newPlayer = new Player();
+        newPlayer.Info.PlayerId = session.SessionId;
+        newPlayer.Info.Name = name;
+        newPlayer.Room = this;
+        newPlayer.Session = session;
+        session.MyPlayer = newPlayer; //세션에 플레이어 정보 저장
 
-            //다른 사람들한테 새로운 유저 입장 정보 전송
-            informNewFaceInRoomPacket.RoomId = Info.RoomId;
-            informNewFaceInRoomPacket.CurrentCount = Info.CurrentCount;
-            informNewFaceInRoomPacket.NewPlayer = newPlayer.Info;
-            foreach (Player p in _players)
-            {
-                if(p!=newPlayer)
-                    p.Session.Send(informNewFaceInRoomPacket);
-            }
-            
-            //준비 관련 정보 패킷 본인(방금 들어온)한테 보냄
-            newPlayer.Session.Send(MakeReadyRoomPacket());
-        //}
+        //현재 방의 인원수 업데이트
+        _players.Add(newPlayer);
+        Info.CurrentCount = _players.Count;
+
+        //본인한테 입장 허용 패킷 보냄
+        allowEnterPacket.CanEnter = true;
+        allowEnterPacket.MyPlayerId = newPlayer.Info.PlayerId;
+        allowEnterPacket.Room = Info;
+        allowEnterPacket.Players.AddRange(_players.ConvertAll(player => player.Info));
+        allowEnterPacket.Password = Password;
+        newPlayer.Session.Send(allowEnterPacket);
+
+        //다른 사람들한테 새로운 유저 입장 정보 전송
+        informNewFaceInRoomPacket.RoomId = Info.RoomId;
+        informNewFaceInRoomPacket.CurrentCount = Info.CurrentCount;
+        informNewFaceInRoomPacket.NewPlayer = newPlayer.Info;
+        foreach (Player p in _players)
+        {
+            if (p != newPlayer)
+                p.Session.Send(informNewFaceInRoomPacket);
+        }
+
+        //준비 관련 정보 패킷 본인(방금 들어온)한테 보냄
+        newPlayer.Session.Send(MakeReadyRoomPacket());
+
     }
     public void LeaveRoom(ClientSession session)
     {
         if (session == null)
             return;
 
-        //lock (_lock)
-        //{
-            Player player = _players.Find(x => x.Session == session);
-            if (player == null)
-                return;
+        Player player = _players.Find(x => x.Session == session);
+        if (player == null)
+            return;
 
-            SC_LeaveRoom leavePacket = new SC_LeaveRoom();
-            leavePacket.PlayerId = player.Info.PlayerId;
+        SC_LeaveRoom leavePacket = new SC_LeaveRoom();
+        leavePacket.PlayerId = player.Info.PlayerId;
 
-            //만약 방장이 나간거면, 방장을 다른 사람에게 넘겨줌
-            if (player.Info.PlayerId == Info.RoomMasterPlayerId && _players.Count > 1)
-            {
-                Info.RoomMasterPlayerId = _players.Find(x => x.Info.PlayerId != Info.RoomMasterPlayerId).Info.PlayerId;
-                leavePacket.RoomMasterPlayerId = Info.RoomMasterPlayerId;
-            }
-            //방장이 아닌 사람이 나갔을때는 방장이 바뀌지 않음 or 1명남았는데 그 사람이 나갔을때 
-            else
-            {
-                leavePacket.RoomMasterPlayerId = Info.RoomMasterPlayerId;
-            }
+        //만약 방장이 나간거면, 방장을 다른 사람에게 넘겨줌
+        if (player.Info.PlayerId == Info.RoomMasterPlayerId && _players.Count > 1)
+        {
+            Info.RoomMasterPlayerId = _players.Find(x => x.Info.PlayerId != Info.RoomMasterPlayerId).Info.PlayerId;
+            leavePacket.RoomMasterPlayerId = Info.RoomMasterPlayerId;
+        }
+        //방장이 아닌 사람이 나갔을때는 방장이 바뀌지 않음 or 1명남았는데 그 사람이 나갔을때 
+        else
+        {
+            leavePacket.RoomMasterPlayerId = Info.RoomMasterPlayerId;
+        }
 
-            //본인 포함 방 인원 모두한테 나갔다는 정보 전송
-            BroadCast(leavePacket);
-            
-            //나간 사람이 레디 목록에 있었다면 제거
-            if (_readyPlayerId.Contains(player.Info.PlayerId))
-                _readyPlayerId.Remove(player.Info.PlayerId);
+        //본인 포함 방 인원 모두한테 나갔다는 정보 전송
+        BroadCast(leavePacket);
 
-            _players.Remove(player);
-            player.Room = null;
-            
-            //방장이 레디 목록에 있었다면 제거
-            if (_readyPlayerId.Contains(Info.RoomMasterPlayerId))
-                _readyPlayerId.Remove(Info.RoomMasterPlayerId);
-            //본인 포함 방 인원 모두한테 레디 정보 패킷을 전송
-            BroadCast(MakeReadyRoomPacket());
+        //나간 사람이 레디 목록에 있었다면 제거
+        if (_readyPlayerId.Contains(player.Info.PlayerId))
+            _readyPlayerId.Remove(player.Info.PlayerId);
 
-            //현재 방의 인원수 업데이트
-            Info.CurrentCount = _players.Count;
+        _players.Remove(player);
+        player.Room = null;
 
-            //해당 클라세션에서 플레이어 정보 삭제
-            session.MyPlayer = null;
+        //방장이 레디 목록에 있었다면 제거
+        if (_readyPlayerId.Contains(Info.RoomMasterPlayerId))
+            _readyPlayerId.Remove(Info.RoomMasterPlayerId);
+        //본인 포함 방 인원 모두한테 레디 정보 패킷을 전송
+        BroadCast(MakeReadyRoomPacket());
 
-            //만약에 방에 아무도 없게된다면 방을 삭제함
-            if (_players.Count <= 0)
-                RoomManager.Instance.Remove(Info.RoomId);
-            
-        //}
+        //현재 방의 인원수 업데이트
+        Info.CurrentCount = _players.Count;
+
+        //해당 클라세션에서 플레이어 정보 삭제
+        session.MyPlayer = null;
+
+        //만약에 방에 아무도 없게된다면 방을 삭제함
+        if (_players.Count <= 0)
+            RoomManager.Instance.Remove(Info.RoomId);
+
     }
     public void ProcessReady(int playerId, bool isReady)
     {
-        //lock (_lock)
-        //{
-            if (isReady)
-            {
-                if (!_readyPlayerId.Contains(playerId))
-                    _readyPlayerId.Add(playerId);
-            }
-            else
-            {
-                if (_readyPlayerId.Contains(playerId))
-                    _readyPlayerId.Remove(playerId);
-            }
-            
-            //본인 포함 방 인원 모두한테 레디 정보 패킷을 전송
-            BroadCast(MakeReadyRoomPacket());
-        //}
+        if (isReady)
+        {
+            if (!_readyPlayerId.Contains(playerId))
+                _readyPlayerId.Add(playerId);
+        }
+        else
+        {
+            if (_readyPlayerId.Contains(playerId))
+                _readyPlayerId.Remove(playerId);
+        }
+
+        //본인 포함 방 인원 모두한테 레디 정보 패킷을 전송
+        BroadCast(MakeReadyRoomPacket());
     }
-    
+
     /// <summary>
     /// SC_ReadyRoom 패킷을 현재 정보를 바탕으로 만드는 함수
     /// </summary>

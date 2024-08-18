@@ -17,21 +17,18 @@ public class RoomManager
     {
         GameRoom gameRoom = new GameRoom();
 
-        //lock (_lock)
-        //{
-            gameRoom.Info.RoomId = _roomId;
-            gameRoom.Info.Title = title;
-            gameRoom.Info.CurrentCount = 0;
-            gameRoom.Info.MaxCount = _maxPerRoomCount;
-            gameRoom.Info.IsPrivate = isPrivate;
-            gameRoom.Password = password;
-            gameRoom.Info.IsPlaying = false;
-            gameRoom._dedicatedServerInfo._ip = null;
-            gameRoom._dedicatedServerInfo._port = -1;
-            gameRoom.Info.RoomMasterPlayerId = clientSessionSessionId; //최초 방장은 방 생성한 플레이어의 sessionID임.
-            _rooms.Add(_roomId, gameRoom);
-            _roomId++;
-        //}
+        gameRoom.Info.RoomId = _roomId;
+        gameRoom.Info.Title = title;
+        gameRoom.Info.CurrentCount = 0;
+        gameRoom.Info.MaxCount = _maxPerRoomCount;
+        gameRoom.Info.IsPrivate = isPrivate;
+        gameRoom.Password = password;
+        gameRoom.Info.IsPlaying = false;
+        gameRoom._dedicatedServerInfo._ip = null;
+        gameRoom._dedicatedServerInfo._port = -1;
+        gameRoom.Info.RoomMasterPlayerId = clientSessionSessionId; //최초 방장은 방 생성한 플레이어의 sessionID임.
+        _rooms.Add(_roomId, gameRoom);
+        _roomId++;
 
         return gameRoom;
     }
@@ -39,78 +36,68 @@ public class RoomManager
     public void EnterRoom(int roomId, string password, ClientSession session, string name)
     {
         GameRoom room = null;
-        SC_AllowEnterRoom allowEnterPacket = new SC_AllowEnterRoom(){CanEnter = false};
+        SC_AllowEnterRoom allowEnterPacket = new SC_AllowEnterRoom() { CanEnter = false };
 
-        //lock (_lock)    
-        //{
-            if (!_rooms.ContainsKey(roomId)) //존재하지 않는 방이면 입장불가
+        if (!_rooms.ContainsKey(roomId)) //존재하지 않는 방이면 입장불가
+        {
+            allowEnterPacket.ReasonRejected = ReasonRejected.RoomNotExist;
+            session.Send(allowEnterPacket);
+        }
+        else
+        {
+            room = _rooms[roomId];
+            if (room.Info.IsPlaying) //게임중이면 입장불가
             {
-                allowEnterPacket.ReasonRejected = ReasonRejected.RoomNotExist;
+                allowEnterPacket.ReasonRejected = ReasonRejected.CurrentlyPlaying;
                 session.Send(allowEnterPacket);
-            }   
-            else
-            {
-                room = _rooms[roomId];
-                if (room.Info.IsPlaying) //게임중이면 입장불가
-                {
-                    allowEnterPacket.ReasonRejected = ReasonRejected.CurrentlyPlaying;
-                    session.Send(allowEnterPacket);
-                }
-                else if (room.Info.CurrentCount >= room.Info.MaxCount) //방이 꽉차면 입장불가
-                {
-                    allowEnterPacket.ReasonRejected = ReasonRejected.RoomIsFull;
-                    session.Send(allowEnterPacket);
-                }
-                else if (room.Info.IsPrivate && room.Password != password) //비공개방이면서, 비밀번호가 틀리면 입장불가
-                {
-                    allowEnterPacket.ReasonRejected = ReasonRejected.WrongPassword;
-                    session.Send(allowEnterPacket);
-                }
-                else //비공개방이면서, 비밀번호가 맞은경우 입장 or 입장가능한 공개방
-                {
-                    //서버에서 방입장 처리
-                    room.EnterRoom(session, name);
-                }
             }
-        //}
+            else if (room.Info.CurrentCount >= room.Info.MaxCount) //방이 꽉차면 입장불가
+            {
+                allowEnterPacket.ReasonRejected = ReasonRejected.RoomIsFull;
+                session.Send(allowEnterPacket);
+            }
+            else if (room.Info.IsPrivate && room.Password != password) //비공개방이면서, 비밀번호가 틀리면 입장불가
+            {
+                allowEnterPacket.ReasonRejected = ReasonRejected.WrongPassword;
+                session.Send(allowEnterPacket);
+            }
+            else //비공개방이면서, 비밀번호가 맞은경우 입장 or 입장가능한 공개방
+            {
+                //서버에서 방입장 처리
+                room.EnterRoom(session, name);
+            }
+        }
+
     }
 
     public void LeaveRoom(int roomId, ClientSession session)
     {
         SC_LeaveRoom sendPacket = new SC_LeaveRoom();
         sendPacket.PlayerId = session.SessionId; //현재 플레이어id는 세션아이디와 같음
-        
-        //lock (_lock)
-        //{
-            if (!_rooms.ContainsKey(roomId)) //존재하지 않는 방이면 퇴장 가능처리
-            {
-                session.Send(sendPacket);
-            }
-            else
-            {
-                GameRoom room = _rooms[roomId];
-                room.LeaveRoom(session);
-            }
-        //}
+
+        if (!_rooms.ContainsKey(roomId)) //존재하지 않는 방이면 퇴장 가능처리
+        {
+            session.Send(sendPacket);
+        }
+        else
+        {
+            GameRoom room = _rooms[roomId];
+            room.LeaveRoom(session);
+        }
+
     }
 
     public bool Remove(int roomId)
     {
-        //lock (_lock)
-        //{
-            return _rooms.Remove(roomId);
-        //}
+        return _rooms.Remove(roomId);
     }
-    
+
     public void SetRoomPlaying(int roomId)
     {
-        //lock (_lock)
-        //{
-            if (_rooms.ContainsKey(roomId))
-            {
-                _rooms[roomId].Info.IsPlaying = true;
-            }
-        //}
+        if (_rooms.ContainsKey(roomId))
+        {
+            _rooms[roomId].Info.IsPlaying = true;
+        }
     }
 
     public GameRoom Find(int roomId)
