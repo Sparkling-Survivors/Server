@@ -64,6 +64,10 @@ enum MsgId {
   CDS_CLEANSE_SUCCESS = 42; //클라가 데디서버에게 정화 성공 전달
   DSC_CLEANSE_SUCCESS = 43; //데디서버가 클라들에게 정화 성공 전달
   DSC_CLEANSE_COOLTIME_FINISH = 44; //데디서버가 클라들에게 정화 쿨타임 종료 전달
+
+  CDS_ITEM_BUY_REQUEST = 45; //클라가 데디서버에게 아이템 구매 요청
+  DSC_ITEM_BUY_RESULT = 46; //데디서버가 클라에게 아이템 구매 결과 전달(실패일수도 있음)
+
 }
 
 enum ReasonRejected{
@@ -361,5 +365,15 @@ message DSC_CleanseCooltimeFinish{
   int32 cleanseId = 1;
 }
 
+message CDS_ItemBuyRequest{
+  int32 myDediplayerId = 1;
+  int32 itemId = 2;
+}
 
-
+message DSC_ItemBuyResult{
+  int32 playerId = 1;
+  int32 itemId = 2;
+  int32 itemTotalCount = 3; //클라가 가진 해당 아이템의 총 갯수
+  bool isSuccess = 4; //구매 성공 여부
+  int32 remainMoney = 5; //남은 돈
+}
