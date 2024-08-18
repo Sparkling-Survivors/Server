@@ -11,6 +11,9 @@ class Program
 {
     static Listener _listener = new Listener();
 
+    /// <summary>
+    /// 주기적으로 세션 갯수 확인
+    /// </summary>
     static void CheckSessionNum()
     {
         Console.WriteLine($"session num : {SessionManager.Instance._sessions.Count}");
@@ -26,6 +29,7 @@ class Program
         Console.WriteLine("Listening...");
         
         JobTimer.Instance.Push(CheckSessionNum); //세션 갯수 1초마다 확인
+
         while (true)
         {
             //패킷 처리
@@ -37,9 +41,8 @@ class Program
                     handler.Invoke(packet.Session, packet.Message);
             }
             
-            
             JobTimer.Instance.Flush();
-            Thread.Sleep(10);
+            Thread.Sleep(16);
         }
     }
 }

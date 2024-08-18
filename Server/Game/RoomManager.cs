@@ -61,6 +61,14 @@ public class RoomManager
                 allowEnterPacket.ReasonRejected = ReasonRejected.WrongPassword;
                 session.Send(allowEnterPacket);
             }
+            else if (session.SessionId != room.Info.RoomMasterPlayerId && room.Info.CurrentCount==0) //방장이 아닌데 0명인 방에 들어가려고 시도할때 입장불가
+            {
+                allowEnterPacket.ReasonRejected = ReasonRejected.RoomNotExist;
+                session.Send(allowEnterPacket);
+
+                //방금 방을 만든 방장에게 문제가 생긴것이므로, 방 삭제처리
+                Remove(roomId);
+            }
             else //비공개방이면서, 비밀번호가 맞은경우 입장 or 입장가능한 공개방
             {
                 //서버에서 방입장 처리
@@ -176,4 +184,5 @@ public class RoomManager
         GameRoom room = _rooms[roomId];
         room.BroadCast(packet);
     }
+
 }

@@ -67,6 +67,7 @@ public class GameRoom
         newPlayer.Session.Send(MakeReadyRoomPacket());
 
     }
+
     public void LeaveRoom(ClientSession session)
     {
         if (session == null)
