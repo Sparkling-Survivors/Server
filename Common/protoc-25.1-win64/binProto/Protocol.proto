@@ -83,7 +83,7 @@ enum ReasonRejected{
   RoomIsFull = 2;
   WrongPassword = 3;
 }
-
+ 
 enum DeathCause{
   TimeOver = 0;
   GaugeOver = 1;
