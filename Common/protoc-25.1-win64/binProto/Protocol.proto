@@ -75,7 +75,7 @@ enum MsgId {
   DSC_USE_FIREWORK_ITEM = 52; //데디서버가 특정 플레이어의 폭죽 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
   CDS_USE_INVISIBLE_ITEM = 53; //투명 아이템을 사용했다고 데디서버에 알림
   DSC_USE_INVISIBLE_ITEM = 54; //데디서버가 특정 플레이어의 투명 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
-}
+} 
 
 enum ReasonRejected{
   RoomNotExist = 0;
