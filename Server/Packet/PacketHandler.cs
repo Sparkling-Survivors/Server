@@ -114,7 +114,6 @@ public class PacketHandler
                 RoomManager.Instance.SetRoomPlaying(room.Info.RoomId);
             }
         }
-        
     }
     
 }

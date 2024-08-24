@@ -84,6 +84,10 @@ class PacketManager
 		_handler.Add((ushort)MsgId.DscItemBuyResult, PacketHandler.DSC_ItemBuyResultHandler);		
 		_onRecv.Add((ushort)MsgId.DscOnHoldItem, MakePacket<DSC_OnHoldItem>);
 		_handler.Add((ushort)MsgId.DscOnHoldItem, PacketHandler.DSC_OnHoldItemHandler);		
+		_onRecv.Add((ushort)MsgId.DscUseDashItem, MakePacket<DSC_UseDashItem>);
+		_handler.Add((ushort)MsgId.DscUseDashItem, PacketHandler.DSC_UseDashItemHandler);		
+		_onRecv.Add((ushort)MsgId.DscEndDashItem, MakePacket<DSC_EndDashItem>);
+		_handler.Add((ushort)MsgId.DscEndDashItem, PacketHandler.DSC_EndDashItemHandler);		
 		_onRecv.Add((ushort)MsgId.DscUseFireworkItem, MakePacket<DSC_UseFireworkItem>);
 		_handler.Add((ushort)MsgId.DscUseFireworkItem, PacketHandler.DSC_UseFireworkItemHandler);		
 		_onRecv.Add((ushort)MsgId.DscUseInvisibleItem, MakePacket<DSC_UseInvisibleItem>);

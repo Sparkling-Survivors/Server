@@ -71,10 +71,13 @@ enum MsgId {
   CDS_ON_HOLD_ITEM = 47; //클라가 아이템을 들었다고 데디서버에 알림
   DSC_ON_HOLD_ITEM = 48; //데디서버가 특정 클라가 특정 아이템을 들었다고 브로드캐스트함
 
-  CDS_USE_FIREWORK_ITEM = 51; //폭죽 아이템을 사용했다고 데디서버에 알림
-  DSC_USE_FIREWORK_ITEM = 52; //데디서버가 특정 플레이어의 폭죽 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
-  CDS_USE_INVISIBLE_ITEM = 53; //투명 아이템을 사용했다고 데디서버에 알림
-  DSC_USE_INVISIBLE_ITEM = 54; //데디서버가 특정 플레이어의 투명 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
+  CDS_USE_DASH_ITEM = 49; //대쉬 아이템을 사용했다고 데디서버에 알림
+  DSC_USE_DASH_ITEM = 50; //데디서버가 특정 플레이어의 대쉬 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
+  DSC_END_DASH_ITEM = 51; //데디서버에서 특정 플레이어의 대쉬 아이템 사용이 끝났다고 클라들에게 알림 (데디서버측에서 처리가 끝났다는 의미)
+  CDS_USE_FIREWORK_ITEM = 52; //폭죽 아이템을 사용했다고 데디서버에 알림
+  DSC_USE_FIREWORK_ITEM = 53; //데디서버가 특정 플레이어의 폭죽 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
+  CDS_USE_INVISIBLE_ITEM = 54; //투명 아이템을 사용했다고 데디서버에 알림
+  DSC_USE_INVISIBLE_ITEM = 55; //데디서버가 특정 플레이어의 투명 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
 }   
 
 enum ReasonRejected{
@@ -393,6 +396,24 @@ message CDS_OnHoldItem{
 message DSC_OnHoldItem{
   int32 playerId = 1;
   int32 itemId = 2;
+}
+
+message CDS_UseDashItem{
+  int32 myDediplayerId = 1;
+  int32 itemId = 2;
+  TransformInfo dashStartingTransform = 3; //대쉬 시작 위치
+}
+
+message DSC_UseDashItem{
+  int32 playerId = 1;
+  int32 itemId = 2;
+  TransformInfo dashStartingTransform = 3; //대쉬 시작 위치
+}
+
+message DSC_EndDashItem{
+  int32 playerId = 1;
+  int32 itemId = 2;
+  TransformInfo dashEndTransform = 3; //대쉬 끝 위치
 }
 
 message CDS_UseFireworkItem{
