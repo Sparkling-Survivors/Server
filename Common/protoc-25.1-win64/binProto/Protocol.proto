@@ -79,6 +79,8 @@ enum MsgId {
   DSC_USE_FIREWORK_ITEM = 54; //데디서버가 특정 플레이어의 폭죽 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
   CDS_USE_INVISIBLE_ITEM = 55; //투명 아이템을 사용했다고 데디서버에 알림
   DSC_USE_INVISIBLE_ITEM = 56; //데디서버가 특정 플레이어의 투명 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
+
+  DSC_END_GAME = 80; //게임 종료를 클라들에게 알림
 }   
 
 enum ReasonRejected{
@@ -441,5 +443,9 @@ message CDS_UseInvisibleItem{
 message DSC_UseInvisibleItem{
   int32 playerId = 1;
   int32 itemId = 2;
+}
+
+message DSC_EndGame{
+  int32 winnerPlayerId = 1; //승자 플레이어의 id
 }
 

@@ -91,7 +91,9 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.DscUseFireworkItem, MakePacket<DSC_UseFireworkItem>);
 		_handler.Add((ushort)MsgId.DscUseFireworkItem, PacketHandler.DSC_UseFireworkItemHandler);		
 		_onRecv.Add((ushort)MsgId.DscUseInvisibleItem, MakePacket<DSC_UseInvisibleItem>);
-		_handler.Add((ushort)MsgId.DscUseInvisibleItem, PacketHandler.DSC_UseInvisibleItemHandler);
+		_handler.Add((ushort)MsgId.DscUseInvisibleItem, PacketHandler.DSC_UseInvisibleItemHandler);		
+		_onRecv.Add((ushort)MsgId.DscEndGame, MakePacket<DSC_EndGame>);
+		_handler.Add((ushort)MsgId.DscEndGame, PacketHandler.DSC_EndGameHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
