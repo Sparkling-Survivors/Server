@@ -447,5 +447,6 @@ message DSC_UseInvisibleItem{
 
 message DSC_EndGame{
   int32 winnerPlayerId = 1; //승자 플레이어의 id
+  string winnerName = 2; //승자 플레이어의 이름
 }
 
