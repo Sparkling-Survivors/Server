@@ -450,12 +450,12 @@ message DSC_UseInvisibleItem{
 
 message CDS_UseHeartlessSkill{
   int32 myDediplayerId = 1;
-  int32 skillId = 2;
+  int32 killerId = 2;
 }
 
 message DSC_UseHeartlessSkill{
   int32 playerId = 1;
-  int32 skillId = 2;
+  int32 killerId = 2;
 }
 
 message DSC_EndGame{
