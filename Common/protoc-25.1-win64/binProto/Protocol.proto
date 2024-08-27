@@ -80,6 +80,9 @@ enum MsgId {
   CDS_USE_INVISIBLE_ITEM = 55; //투명 아이템을 사용했다고 데디서버에 알림
   DSC_USE_INVISIBLE_ITEM = 56; //데디서버가 특정 플레이어의 투명 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
 
+  CDS_USE_TRAP_ITEM = 59; //트랩 아이템을 사용했다고 데디서버에 알림
+  DSC_USE_TRAP_ITEM = 60; //데디서버가 특정 플레이어의 트랩 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
+
   CDS_USE_HEARTLESS_SKILL = 63; //데디서버에게 하트리스 스킬 사용했다고 알림
   DSC_USE_HEARTLESS_SKILL = 64; //데디서버가 클라에게 하트리스 스킬 사용 알림
   CDS_USE_DETECTOR_SKILL = 65; //데디서버에게 스캔 스킬 사용했다고 알림
@@ -448,6 +451,18 @@ message CDS_UseInvisibleItem{
 message DSC_UseInvisibleItem{
   int32 playerId = 1;
   int32 itemId = 2;
+}
+
+message CDS_UseTrapItem{
+  int32 myDediplayerId = 1;
+  int32 itemId = 2;
+  TransformInfo trapTransform = 3; //트랩 설치 위치
+}
+
+message DSC_UseTrapItem{
+  int32 playerId = 1;
+  int32 itemId = 2;
+  TransformInfo trapTransform = 3; //트랩 설치 위치
 }
 
 message CDS_UseHeartlessSkill{
