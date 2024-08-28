@@ -94,6 +94,8 @@ class PacketManager
 		_handler.Add((ushort)MsgId.DscUseInvisibleItem, PacketHandler.DSC_UseInvisibleItemHandler);		
 		_onRecv.Add((ushort)MsgId.DscUseTrapItem, MakePacket<DSC_UseTrapItem>);
 		_handler.Add((ushort)MsgId.DscUseTrapItem, PacketHandler.DSC_UseTrapItemHandler);		
+		_onRecv.Add((ushort)MsgId.DscOnHitTrapItem, MakePacket<DSC_OnHitTrapItem>);
+		_handler.Add((ushort)MsgId.DscOnHitTrapItem, PacketHandler.DSC_OnHitTrapItemHandler);		
 		_onRecv.Add((ushort)MsgId.DscUseHeartlessSkill, MakePacket<DSC_UseHeartlessSkill>);
 		_handler.Add((ushort)MsgId.DscUseHeartlessSkill, PacketHandler.DSC_UseHeartlessSkillHandler);		
 		_onRecv.Add((ushort)MsgId.DscUseDetectorSkill, MakePacket<DSC_UseDetectorSkill>);

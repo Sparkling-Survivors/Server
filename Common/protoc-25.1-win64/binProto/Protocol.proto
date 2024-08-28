@@ -82,6 +82,7 @@ enum MsgId {
 
   CDS_USE_TRAP_ITEM = 59; //트랩 아이템을 사용했다고 데디서버에 알림
   DSC_USE_TRAP_ITEM = 60; //데디서버가 특정 플레이어의 트랩 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
+  DSC_ON_HIT_TRAP_ITEM = 61; //데디서버가 특정 플레이어가 트랩에 걸렸다고 알림
 
   CDS_USE_HEARTLESS_SKILL = 63; //데디서버에게 하트리스 스킬 사용했다고 알림
   DSC_USE_HEARTLESS_SKILL = 64; //데디서버가 클라에게 하트리스 스킬 사용 알림
@@ -457,12 +458,20 @@ message CDS_UseTrapItem{
   int32 myDediplayerId = 1;
   int32 itemId = 2;
   TransformInfo trapTransform = 3; //트랩 설치 위치
+  string trapId = 4; //트랩 아이디(데디플레이어id_트랩아이템id)형식
 }
 
 message DSC_UseTrapItem{
   int32 playerId = 1;
   int32 itemId = 2;
   TransformInfo trapTransform = 3; //트랩 설치 위치
+  string trapId = 4; //트랩 아이디 
+}
+
+message DSC_OnHitTrapItem{
+  int32 playerId = 1;
+  int32 itemId = 2;
+  string trapId = 3; //트랩 아이디
 }
 
 message CDS_UseHeartlessSkill{
