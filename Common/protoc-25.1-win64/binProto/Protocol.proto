@@ -94,6 +94,8 @@ enum MsgId {
   DSC_USE_HEARTLESS_SKILL = 66; //데디서버가 클라에게 하트리스 스킬 사용 알림
   CDS_USE_DETECTOR_SKILL = 67; //데디서버에게 스캔 스킬 사용했다고 알림
   DSC_USE_DETECTOR_SKILL = 68; //데디서버가 클라에게 스캔 스킬 사용 알림
+  CDS_DETECTED_PLAYERS = 69; //데디서버에게 스캔 스킬 사용했을때 감지된 플레이어들 정보 전달
+  DSC_DETECTED_PLAYERS = 70; //데디서버가 클라에게 스캔 스킬 사용시 감지된 플레이어들 정보 전달
 
   DSC_END_GAME = 80; //게임 종료를 클라들에게 알림
 }   
@@ -527,6 +529,16 @@ message DSC_UseDetectorSkill{
   int32 playerId = 1;
   int32 killerId = 2;
   repeated int32 detectedPlayerIds = 3;
+}
+
+message CDS_DetectedPlayers{
+  int32 myDediplayerId = 1;
+  repeated int32 detectedPlayerIds = 2;
+}
+
+message DSC_DetectedPlayers{
+  int32 playerId = 1;
+  repeated int32 detectedPlayerIds = 2;
 }
 
 message DSC_EndGame{
