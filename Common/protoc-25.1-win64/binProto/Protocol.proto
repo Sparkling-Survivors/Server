@@ -80,14 +80,20 @@ enum MsgId {
   CDS_USE_INVISIBLE_ITEM = 55; //투명 아이템을 사용했다고 데디서버에 알림
   DSC_USE_INVISIBLE_ITEM = 56; //데디서버가 특정 플레이어의 투명 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
 
-  CDS_USE_TRAP_ITEM = 59; //트랩 아이템을 사용했다고 데디서버에 알림
-  DSC_USE_TRAP_ITEM = 60; //데디서버가 특정 플레이어의 트랩 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
-  DSC_ON_HIT_TRAP_ITEM = 61; //데디서버가 특정 플레이어가 트랩에 걸렸다고 알림
+  CDS_USE_FLASHLIGHT_ITEM = 57; //손전등 사용중이라고 데디서버에 알림. (주기적으로 보내는 정보)
+  DSC_USE_FLASHLIGHT_ITEM = 58; //데디서버가 손전등 사용정보를 클라들에게 알림 (주기적으로 보내는 정보)
+  CDS_END_FLASHLIGHT_ITEM = 59; //손전등 사용이 끝났다고 데디서버에 알림
+  DSC_END_FLASHLIGHT_ITEM = 60; //데디서버가 손전등 사용이 끝났다고 클라들에게 알림
+  DSC_ON_HIT_FLASHLIGHT_ITEM = 61; //데디서버가 특정 플레이어가 손전등 빛에 맞았다고 알림
 
-  CDS_USE_HEARTLESS_SKILL = 63; //데디서버에게 하트리스 스킬 사용했다고 알림
-  DSC_USE_HEARTLESS_SKILL = 64; //데디서버가 클라에게 하트리스 스킬 사용 알림
-  CDS_USE_DETECTOR_SKILL = 65; //데디서버에게 스캔 스킬 사용했다고 알림
-  DSC_USE_DETECTOR_SKILL = 66; //데디서버가 클라에게 스캔 스킬 사용 알림
+  CDS_USE_TRAP_ITEM = 62; //트랩 아이템을 사용했다고 데디서버에 알림
+  DSC_USE_TRAP_ITEM = 63; //데디서버가 특정 플레이어의 트랩 아이템 사용을 클라들에게 알림(사용 가능여부 검증하고 가능했을때만)
+  DSC_ON_HIT_TRAP_ITEM = 64; //데디서버가 특정 플레이어가 트랩에 걸렸다고 알림
+
+  CDS_USE_HEARTLESS_SKILL = 65; //데디서버에게 하트리스 스킬 사용했다고 알림
+  DSC_USE_HEARTLESS_SKILL = 66; //데디서버가 클라에게 하트리스 스킬 사용 알림
+  CDS_USE_DETECTOR_SKILL = 67; //데디서버에게 스캔 스킬 사용했다고 알림
+  DSC_USE_DETECTOR_SKILL = 68; //데디서버가 클라에게 스캔 스킬 사용 알림
 
   DSC_END_GAME = 80; //게임 종료를 클라들에게 알림
 }   
@@ -280,6 +286,7 @@ message CDS_Move{
   int32 keyboardInput = 3;
   Velocity velocity = 4; //속도
   google.protobuf.Timestamp timestamp = 5; //서버시간으로 동기화된 타임스탬프 
+  RotationInfo cameraWorldRotation = 6; //카메라의 월드 회전값
 }
 
 message DSC_Move{
@@ -288,6 +295,7 @@ message DSC_Move{
   int32 keyboardInput = 3;
   Velocity velocity = 4; //속도
   google.protobuf.Timestamp timestamp = 5; //서버시간으로 동기화된 타임스탬프 
+  RotationInfo cameraWorldRotation = 6; //카메라의 월드 회전값
 }
 
 message DSC_DayTimerStart{
@@ -451,6 +459,31 @@ message CDS_UseInvisibleItem{
 
 message DSC_UseInvisibleItem{
   int32 playerId = 1;
+  int32 itemId = 2;
+}
+
+message CDS_UseFlashlightItem{
+  int32 myDediplayerId = 1;
+  int32 itemId = 2;
+}
+
+message DSC_UseFlashlightItem{
+  int32 playerId = 1;
+  int32 itemId = 2;
+}
+
+message CDS_EndFlashlightItem{
+  int32 myDediplayerId = 1;
+  int32 itemId = 2;
+}
+
+message DSC_EndFlashlightItem{
+  int32 playerId = 1;
+  int32 itemId = 2;
+}
+
+message DSC_OnHitFlashlightItem{
+  int32 playerId = 1; //킬러,플레이어 상관없이 빛에 맞은 플레이어의 id
   int32 itemId = 2;
 }
 

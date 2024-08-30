@@ -92,6 +92,12 @@ class PacketManager
 		_handler.Add((ushort)MsgId.DscUseFireworkItem, PacketHandler.DSC_UseFireworkItemHandler);		
 		_onRecv.Add((ushort)MsgId.DscUseInvisibleItem, MakePacket<DSC_UseInvisibleItem>);
 		_handler.Add((ushort)MsgId.DscUseInvisibleItem, PacketHandler.DSC_UseInvisibleItemHandler);		
+		_onRecv.Add((ushort)MsgId.DscUseFlashlightItem, MakePacket<DSC_UseFlashlightItem>);
+		_handler.Add((ushort)MsgId.DscUseFlashlightItem, PacketHandler.DSC_UseFlashlightItemHandler);		
+		_onRecv.Add((ushort)MsgId.DscEndFlashlightItem, MakePacket<DSC_EndFlashlightItem>);
+		_handler.Add((ushort)MsgId.DscEndFlashlightItem, PacketHandler.DSC_EndFlashlightItemHandler);		
+		_onRecv.Add((ushort)MsgId.DscOnHitFlashlightItem, MakePacket<DSC_OnHitFlashlightItem>);
+		_handler.Add((ushort)MsgId.DscOnHitFlashlightItem, PacketHandler.DSC_OnHitFlashlightItemHandler);		
 		_onRecv.Add((ushort)MsgId.DscUseTrapItem, MakePacket<DSC_UseTrapItem>);
 		_handler.Add((ushort)MsgId.DscUseTrapItem, PacketHandler.DSC_UseTrapItemHandler);		
 		_onRecv.Add((ushort)MsgId.DscOnHitTrapItem, MakePacket<DSC_OnHitTrapItem>);
