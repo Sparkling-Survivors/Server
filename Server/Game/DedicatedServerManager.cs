@@ -20,9 +20,10 @@ public class DedicatedServerManager
     public SC_ConnectDedicatedServer CreateDedicatedServer()
     {
         // DNS (Domain Name System)
-        string host = Dns.GetHostName();
+        /*string host = Dns.GetHostName();
         IPHostEntry ipHost = Dns.GetHostEntry(host);
-        IPAddress ipAddr = ipHost.AddressList[0];
+        IPAddress ipAddr = ipHost.AddressList[0];*/
+        IPAddress ipAddr = IPAddress.Parse("127.0.0.1");
 
         string ip = ipAddr.ToString();
         int port = 8888;
