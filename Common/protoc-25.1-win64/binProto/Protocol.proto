@@ -537,7 +537,7 @@ message CDS_DetectedPlayer{
 }
 
 message DSC_DetectedPlayer{
-  int32 playerId = 1;
+  int32 killerId = 1;
   int32 detectedPlayerId = 2;
 }
 
