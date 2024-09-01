@@ -533,7 +533,7 @@ message DSC_UseDetectorSkill{
 
 message CDS_DetectedPlayer{
   int32 myDediplayerId = 1;
-   int32 detectedPlayerId = 2;
+  int32 detectedPlayerId = 2;
 }
 
 message DSC_DetectedPlayer{
