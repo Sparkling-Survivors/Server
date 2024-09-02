@@ -1,7 +1,7 @@
 # 룸 서버
 Together게임의 게임 룸 처리를 담당하는 룸 서버 (저작권 문제로 에셋 등 리소스는 제외한 버전)
 
-### 영상 링크 : Together 유튜브 바로가기
+### 영상 링크 : [Together 유튜브 바로가기](https://www.youtube.com/watch?v=I5oIDU53050)
 
 # Together
 2인 개발중인 멀티 게임
