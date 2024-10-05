@@ -36,7 +36,11 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.CsPingPong, MakePacket<CS_PingPong>);
 		_handler.Add((ushort)MsgId.CsPingPong, PacketHandler.CS_PingPongHandler);		
 		_onRecv.Add((ushort)MsgId.CsConnectDedicatedServer, MakePacket<CS_ConnectDedicatedServer>);
-		_handler.Add((ushort)MsgId.CsConnectDedicatedServer, PacketHandler.CS_ConnectDedicatedServerHandler);
+		_handler.Add((ushort)MsgId.CsConnectDedicatedServer, PacketHandler.CS_ConnectDedicatedServerHandler);		
+		_onRecv.Add((ushort)MsgId.CsGetSetting, MakePacket<CS_GetSetting>);
+		_handler.Add((ushort)MsgId.CsGetSetting, PacketHandler.CS_GetSettingHandler);		
+		_onRecv.Add((ushort)MsgId.CsSetSetting, MakePacket<CS_SetSetting>);
+		_handler.Add((ushort)MsgId.CsSetSetting, PacketHandler.CS_SetSettingHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

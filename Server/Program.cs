@@ -3,6 +3,7 @@ using ServerCore;
 using System.Net;
 using System.Text;
 using Google.Protobuf;
+using Server.DB;
 using Server.Game;
 
 namespace Server;
@@ -20,6 +21,7 @@ class Program
         JobTimer.Instance.Push(CheckSessionNum,1000); //1초 간격으로 
     }
 
+
     static void Main(string[] args)
     {
         IPAddress ipAddr = IPAddress.Any;
@@ -27,7 +29,7 @@ class Program
 
         _listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); });
         Console.WriteLine("Listening...");
-        
+
         JobTimer.Instance.Push(CheckSessionNum); //세션 갯수 1초마다 확인
 
         while (true)

@@ -98,6 +98,14 @@ enum MsgId {
   DSC_DETECTED_PLAYER = 70; //데디서버가 클라에게 스캔 스킬 사용시 감지된 플레이어들 정보 전달
 
   DSC_END_GAME = 80; //게임 종료를 클라들에게 알림
+
+  
+
+
+  CS_GET_SETTING = 200; //룸서버한테 본인 steamId를 보내면서 해당하는 세팅값이 있으면 보내달라고 요청
+  SC_GET_SETTING = 201; //룸서버는 steamId에 해당하는 세팅값이 있으면 클라에게 보내줌
+  CS_SET_SETTING = 202; //클라가 새로운 세팅값을 룸서버에게 보냄
+  
 }   
 
 enum ReasonRejected{
@@ -544,5 +552,32 @@ message DSC_DetectedPlayer{
 message DSC_EndGame{
   int32 winnerPlayerId = 1; //승자 플레이어의 id
   string winnerName = 2; //승자 플레이어의 이름
+}
+
+
+
+message CS_GetSetting{
+	uint64 steamId = 1;
+}
+
+message SC_GetSetting{
+	bool isSettingExist = 1;
+	uint64 steamId = 2;
+	int32 instanceId = 3; //언어 정보
+	float mouseSensitivity = 4;
+	bool isFullScreen = 5;
+	int32 displayQuality = 6;
+	int32 width = 7;
+	int32 height = 8;
+}
+
+message CS_SetSetting{
+	uint64 steamId = 1;
+	int32 instanceId = 2; //언어 정보
+	float mouseSensitivity = 3;
+	bool isFullScreen = 4;
+	int32 displayQuality = 5;
+	int32 width = 6;
+	int32 height = 7;
 }
 

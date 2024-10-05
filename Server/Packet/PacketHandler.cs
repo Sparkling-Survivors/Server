@@ -1,7 +1,9 @@
-﻿using Google.Protobuf;
+﻿using System.Data.Common;
+using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using Microsoft.VisualBasic.CompilerServices;
 using Server;
+using Server.DB;
 using Server.Game;
 using ServerCore;
 
@@ -115,5 +117,28 @@ public class PacketHandler
             }
         }
     }
-    
+
+
+    //클라이언트가 세팅정보를 요청했을때, 해당 세팅정보를 보내줌(없으면 없다고 알려줌)
+    public static void CS_GetSettingHandler(PacketSession session, IMessage packet)
+    {
+        Console.WriteLine("CS_GetSettingHandler");
+
+        CS_GetSetting getSettingPacket = packet as CS_GetSetting;
+        ClientSession clientSession = session as ClientSession;
+
+        SC_GetSetting sendPacket = new SC_GetSetting();
+        DbCommands.GetSetting(clientSession, getSettingPacket.SteamId);
+    }
+
+    //클라이언트가 세팅정보를 변경했을때, 해당 세팅정보를 DB에 저장함
+    public static void CS_SetSettingHandler(PacketSession session, IMessage packet)
+    {
+        Console.WriteLine("CS_SetSettingHandler");
+
+        CS_SetSetting setSettingPacket = packet as CS_SetSetting;
+        ClientSession clientSession = session as ClientSession;
+
+        DbCommands.SetSetting(clientSession,setSettingPacket);
+    }
 }
