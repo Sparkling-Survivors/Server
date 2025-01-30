@@ -110,6 +110,8 @@ class PacketManager
 		_handler.Add((ushort)MsgId.DscDetectedPlayer, PacketHandler.DSC_DetectedPlayerHandler);		
 		_onRecv.Add((ushort)MsgId.DscEndGame, MakePacket<DSC_EndGame>);
 		_handler.Add((ushort)MsgId.DscEndGame, PacketHandler.DSC_EndGameHandler);		
+		_onRecv.Add((ushort)MsgId.DscKillerBasicAttackResult, MakePacket<DSC_KillerBasicAttackResult>);
+		_handler.Add((ushort)MsgId.DscKillerBasicAttackResult, PacketHandler.DSC_KillerBasicAttackResultHandler);		
 		_onRecv.Add((ushort)MsgId.ScGetSetting, MakePacket<SC_GetSetting>);
 		_handler.Add((ushort)MsgId.ScGetSetting, PacketHandler.SC_GetSettingHandler);
 	}

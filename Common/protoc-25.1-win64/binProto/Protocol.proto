@@ -99,9 +99,10 @@ enum MsgId {
 
   DSC_END_GAME = 80; //게임 종료를 클라들에게 알림
 
+  CDS_TRY_KILLER_BASIC_ATTACK = 81; // 킬러 기본 공격 입력을 데디서버에 알림
+  DSC_KILLER_BASIC_ATTACK_RESULT = 82; // 킬러 기본 공격 판정 결과를 플레이어들에게 전달
   
-
-
+  
   CS_GET_SETTING = 200; //룸서버한테 본인 steamId를 보내면서 해당하는 세팅값이 있으면 보내달라고 요청
   SC_GET_SETTING = 201; //룸서버는 steamId에 해당하는 세팅값이 있으면 클라에게 보내줌
   CS_SET_SETTING = 202; //클라가 새로운 세팅값을 룸서버에게 보냄
@@ -554,6 +555,15 @@ message DSC_EndGame{
   string winnerName = 2; //승자 플레이어의 이름
 }
 
+message CDS_TryKillerBasicAttack{
+  int32 myDediplayerId = 1; // 공격 시도 플레이어 id
+}
+
+message DSC_KillerBasicAttackResult{
+  bool isSuccess = 1; // 공격 판정 결과
+  int32 killerId = 2; // 공격을 한 킬러의 id
+  int32 hitPlayerId = 3; // 공격 받은 플레이어 id
+}
 
 
 message CS_GetSetting{

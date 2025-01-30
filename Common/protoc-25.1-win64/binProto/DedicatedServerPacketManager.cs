@@ -63,7 +63,9 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.CdsUseDetectorSkill, MakePacket<CDS_UseDetectorSkill>);
 		_handler.Add((ushort)MsgId.CdsUseDetectorSkill, PacketHandler.CDS_UseDetectorSkillHandler);		
 		_onRecv.Add((ushort)MsgId.CdsDetectedPlayer, MakePacket<CDS_DetectedPlayer>);
-		_handler.Add((ushort)MsgId.CdsDetectedPlayer, PacketHandler.CDS_DetectedPlayerHandler);
+		_handler.Add((ushort)MsgId.CdsDetectedPlayer, PacketHandler.CDS_DetectedPlayerHandler);		
+		_onRecv.Add((ushort)MsgId.CdsTryKillerBasicAttack, MakePacket<CDS_TryKillerBasicAttack>);
+		_handler.Add((ushort)MsgId.CdsTryKillerBasicAttack, PacketHandler.CDS_TryKillerBasicAttackHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
